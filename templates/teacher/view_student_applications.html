@@ -1,0 +1,40 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}View Students{% endblock %}
+
+{% block content %}
+<div class="container mt-5 " style="margin-left: 50px; padding-top: 65px;">
+    <h2>View Student Applications</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Date of Application</th>
+                <th>Number of Days</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.student_name }}</td>
+                <td>{{ application.date_of_application }}</td>
+                <td>{{ application.number_of_days }}</td>
+                <td>{{ application.reason }}</td>
+                <td>{{ application.status }}</td>
+                <td>
+                    {% if application.status == 'In Progress' %}
+                    <a href="{{ url_for('approve_application', application_id=application.id) }}" class="btn btn-success btn-sm">Approve</a>
+                    <a href="{{ url_for('reject_application', application_id=application.id) }}" class="btn btn-danger btn-sm">Reject</a>
+                    {% else %}
+                    {{ application.status }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'common/homebase2.html' %}
+
+{% block title %}Student Signup{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Student Signup</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('student_signup') }}" enctype="multipart/form-data">
+        <!-- Roll No -->
+        <div class="mb-3">
+            <label for="roll_no" class="form-label">Roll No</label>
+            <input type="text" class="form-control" id="roll_no" name="roll_no" required>
+        </div>
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <!-- Email -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <!-- Section -->
+        <div class="mb-3">
+            <label for="section" class="form-label">Section</label>
+            <select class="form-control" id="section" name="section" required>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+        </div>
+        <!-- Year -->
+        <div class="mb-3">
+            <label for="year" class="form-label">Year</label>
+            <select class="form-control" id="year" name="year" required>
+                <option value="1">1st</option>
+                <option value="2">2nd</option>
+                <option value="3">3rd</option>
+                <option value="4">4th</option>
+            </select>
+        </div>
+        <!-- Branch -->
+        <div class="mb-3">
+            <label for="branch" class="form-label">Branch</label>
+            <select class="form-control" id="branch" name="branch" required>
+                <option value="CMPN">CMPN</option>
+                <option value="INFT">INFT</option>
+                <option value="EXTC">EXTC</option>
+                <option value="EXCS">EXCS</option>
+                <option value="BIOM">BIOM</option>
+            </select>
+        </div>
+        <!-- Password -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <!-- Confirm Password -->
+        <div class="mb-3">
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+        </div>
+        <!-- Photo (optional) -->
+        <div class="mb-3">
+            <label for="photo" class="form-label">Photo (optional)</label>
+            <input type="file" class="form-control" id="photo" name="photo">
+        </div>
+        <button type="submit" class="btn btn-primary">Signup</button>
+    </form>
+</div>
+{% endblock %}

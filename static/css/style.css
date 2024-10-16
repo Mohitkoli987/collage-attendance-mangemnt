@@ -1,0 +1,310 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+/* Hero Section */
+.hero-section {
+  
+  color: #080101;
+  padding: 60px 0;
+  text-align: center;
+  
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.hero-content .btn {
+  font-size: 1em;
+  padding: 10px 20px;
+}
+
+/* Info Section */
+.info-section {
+  padding: 60px 0;
+  background-color: #fff;
+}
+
+.info-section .info-card {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.info-card h3 {
+  font-size: 1.5em;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.info-card p {
+  font-size: 1em;
+  color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+      font-size: 2em;
+  }
+
+  .hero-content p {
+      font-size: 1em;
+  }
+}
+
+/* Profile Container */
+.profile-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Profile Header */
+.profile-header h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4e73df;
+  text-transform: uppercase;
+}
+
+/* Profile Card */
+.profile-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.profile-card-header {
+  background-color: #4e73df;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.profile-card .card-body p {
+  font-size: 1.1rem;
+  color: #343a40;
+}
+
+.profile-actions .btn {
+  width: 100%;
+  font-size: 1rem;
+}
+
+/* Navigation Card */
+.navigation-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+}
+
+.navigation-card .card-body {
+  text-align: center;
+}
+
+.navigation-card .btn {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+}
+
+/* Courses Card */
+.courses-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.courses-card .card-header {
+  background-color: #4e73df;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.course-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.course-item:hover {
+  background-color: #e2e6ea;
+}
+
+.course-actions .btn {
+  margin-left: 5px;
+  font-size: 0.85rem;
+}
+
+/* Overall Styling */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1100px;
+}
+
+h5.card-title {
+  font-weight: bold;
+  color: #343a40;
+  text-transform: uppercase;
+}
+
+.btn-primary, .btn-danger, .btn-success, .btn-warning, .btn-info, .btn-dark, .btn-secondary {
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover, .btn-danger:hover, .btn-success:hover, .btn-warning:hover, .btn-info:hover, .btn-dark:hover, .btn-secondary:hover {
+  background-color: #343a40;
+}
+
+
+
+
+/* student profile */
+
+/* Profile Container */
+.profile-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Profile Header */
+.profile-header h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4e73df;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Profile Card */
+.profile-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.profile-card-header {
+  background-color: #4e73df;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.profile-card .card-body p {
+  font-size: 1.1rem;
+  color: #343a40;
+}
+
+.profile-card .btn {
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Course Card */
+.course-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.course-card-header {
+  background-color: #28a745;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.course-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.course-item:hover {
+  background-color: #e2e6ea;
+}
+
+.course-card .btn {
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effects */
+.btn-primary:hover, .btn-success:hover {
+  background-color: #343a40;
+  color: #fff;
+}
+
+/* Card Shadow */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* General Styling */
+.container {
+  max-width: 1100px;
+}
+
+h5.card-title {
+  font-weight: bold;
+  color: #343a40;
+  text-transform: uppercase;
+}
+
+
+
+/* side bar pages */
+body {
+  background-color: #f8f9fa;
+}
+
+h2, h3, h4, h5 {
+  color: #007bff;
+}
+
+.table thead th {
+  background-color: #343a40;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+
+
+
+/* student login from figma*/

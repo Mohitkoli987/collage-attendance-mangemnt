@@ -1,0 +1,42 @@
+{% extends "common/homebase2.html" %}
+
+{% block content %}
+<style>
+    .profile-container {
+        margin-top: 50px;
+        display: flex;
+        align-items: center; /* Center items vertically */
+    }
+    .profile-card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex; /* Use flexbox for card layout */
+        flex: 1;
+        align-items: center; /* Center items vertically in the card */
+    }
+    .profile-photo {
+        border-radius: 50%;
+        width: 100px; /* Adjusted size for the photo */
+        height: 100px; /* Adjusted size for the photo */
+        margin-right: 20px; /* Space between photo and text */
+    }
+    h3 {
+        margin: 0;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <img src="{{ url_for('static', filename='uploads/' + (student.photo or 'nophoto.jpg')) }}" alt="{{ student.name }}'s photo" class="profile-photo">
+        <div>
+            <h3>{{ student.name }}</h3>
+            <p><strong>Email:</strong> {{ student.email }}</p>
+            <p><strong>Roll No:</strong> {{ student.roll_no }}</p>
+            <p><strong>Branch:</strong> {{ student.branch }}</p>
+            <p><strong>Year:</strong> {{ student.year }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

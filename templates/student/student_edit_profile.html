@@ -1,0 +1,55 @@
+{% extends "common/homebase.html" %}
+
+{% block content %}
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3>Edit Profile</h3>
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('student_edit_profile') }}">
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}" required>
+                </div>
+
+                <!-- Roll Number -->
+                <div class="form-group mt-3">
+                    <label for="roll_no">Roll Number</label>
+                    <input type="text" class="form-control" id="roll_no" name="roll_no" value="{{ student.roll_no }}" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group mt-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ student.email }}" required>
+                </div>
+
+                <!-- Contact -->
+                <div class="form-group mt-3">
+                    <label for="contact">Contact</label>
+                    <input type="text" class="form-control" id="contact" name="contact" value="{{ student.contact }}">
+                </div>
+
+                <!-- Profile Picture -->
+                <div class="form-group mt-3">
+                    <label for="photo">Profile Picture</label>
+                    <input type="file" class="form-control" id="photo" name="photo">
+                </div>
+
+                <!-- Remove Profile Picture Option -->
+                <div class="form-group mt-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="remove_photo" name="remove_photo">
+                        <label class="form-check-label" for="remove_photo">
+                            Remove current profile photo
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-success mt-3">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

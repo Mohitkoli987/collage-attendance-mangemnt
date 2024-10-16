@@ -1,0 +1,69 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}Edit Teacher Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    <h2 class="text-center mb-4">Edit Profile</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Update Your Details</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('edit_teacher_profile') }}" enctype="multipart/form-data">
+                        {% if error %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+
+                        <div class="form-group mb-3">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ teacher.name }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ teacher.email }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="contact">Contact</label>
+                            <input type="text" class="form-control" id="contact" name="contact" value="{{ teacher.contact }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="department">Department</label>
+                            <select class="form-control" id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="Information Technology" {% if teacher.department == 'Information Technology' %}selected{% endif %}>Information Technology</option>
+                                <option value="Computer Engineering" {% if teacher.department == 'Computer Engineering' %}selected{% endif %}>Computer Engineering</option>
+                                <option value="Biomedical Engineering" {% if teacher.department == 'Biomedical Engineering' %}selected{% endif %}>Biomedical Engineering</option>
+                                <option value="Electronics and Telecommunication Engineering" {% if teacher.department == 'Electronics and Telecommunication Engineering' %}selected{% endif %}>Electronics and Telecommunication Engineering</option>
+                                <option value="Electronics and Computer Science Engineering" {% if teacher.department == 'Electronics and Computer Science Engineering' %}selected{% endif %}>Electronics and Computer Science Engineering</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="profile_photo">Profile Photo</label>
+                            <input type="file" class="form-control" id="profile_photo" name="profile_photo" accept="image/*">
+                            {% if teacher.profile_photo != 'nophoto.jpg' %}
+                            <div class="mt-3">
+                                <img src="{{ url_for('static', filename='uploads/' + teacher.profile_photo) }}" alt="Profile Photo" class="img-thumbnail" width="150" height="150">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="remove_photo" id="remove_photo">
+                                    <label class="form-check-label" for="remove_photo">Remove current photo</label>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a href="{{ url_for('teacher_profile') }}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

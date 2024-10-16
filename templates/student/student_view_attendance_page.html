@@ -1,0 +1,26 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}Attendance Records{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Attendance Records for {{ course_name }} on {{ date }}</h2>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_records %}
+            <tr>
+                <td>{{ record.student_name }}</td>
+                <td>{{ 'Present' if record.present else 'Absent' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('student_profile') }}" class="btn btn-secondary mt-3">Back to Profile</a>
+</div>
+{% endblock %}

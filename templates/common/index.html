@@ -1,0 +1,99 @@
+{% extends 'common/homebase2.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="login">
+  <div class="rectangle"></div>
+  <div class="attendance">Attendance</div>
+  <div class="for-your-business">for your business</div>
+  <div class="lorem-ipsum-dolor">Every day brings new hopes and opportunities. The journey of education and progress is something we all strive for. We are creating a system that is simple and convenient for both students and teachers. Your path to success is now easier, whether it’s for personal growth or your academic goals.</div>
+  <div class="component-37-parent">
+    <div class="component-37">
+      <div class="component-35" id="teacherBox" onclick="showTeacherLogin()">
+        <div class="teacher">Teacher</div>
+      </div>
+      <div class="component-35" id="studentBox" onclick="showStudentLogin()">
+        <div class="teacher">Student</div>
+      </div>
+    </div>
+    
+    <form method="POST" action="{{ url_for('teacher_login') }}" id="teacherForm" style="display: none;">
+      <div class="rectangle-parent">
+        <div class="rectangle1"></div>
+        <input type="text" name="email" placeholder="Email" class="rectangle1">
+      </div>
+      <div class="rectangle-group">
+        <div class="rectangle2">
+          <div class="password">Password</div>
+        </div>
+        <input type="password" name="password" placeholder="Password" class="rectangle2">
+      </div>
+      <div class="rectangle-container" id="groupContainer3">
+        <button type="submit" class="rectangle-icon">
+          <img alt="" src="Rectangle.svg">
+          <div class="sign-in">Sign in</div>
+        </button>
+      </div>
+    </form>
+    
+    <form method="POST" action="{{ url_for('student_login') }}" id="studentForm" style="display: none;">
+      <div class="rectangle-parent">
+        <div class="rectangle1"></div>
+        <input type="text" name="roll_no" placeholder="Roll Number" class="rectangle1">
+      </div>
+      <div class="rectangle-group">
+        <div class="rectangle2">
+          <div class="password">Password</div>
+        </div>
+        <input type="password" name="password" placeholder="Password" class="rectangle2">
+      </div>
+      <div class="rectangle-container" id="groupContainer3">
+        <button type="submit" class="rectangle-icon">
+          <img alt="" src="Rectangle.svg">
+          <div class="sign-in">Sign in</div>
+        </button>
+      </div>
+    </form>
+    
+    <div class="dont-have-an-account-parent" id="teacherRegister" style="display: none;">
+      <div class="dont-have-an">Don't have an account?</div>
+      <a href="{{ url_for('teacher_signup') }}" class="register-here">Register here</a>
+    </div>
+    <div class="dont-have-an-account-parent" id="studentRegister" style="display: none;">
+      <div class="dont-have-an">Don't have an account?</div>
+      <a href="{{ url_for('student_signup') }}" class="register-here">Register here</a>
+    </div>
+
+  </div>
+ 
+</div>
+
+<script>
+  function showTeacherLogin() {
+    document.getElementById('teacherForm').style.display = 'block';
+    document.getElementById('studentForm').style.display = 'none';
+    document.getElementById('teacherRegister').style.display = 'block';
+    document.getElementById('studentRegister').style.display = 'none';
+    
+    // Highlight teacher box and reset student box
+    document.getElementById('teacherBox').style.backgroundColor = 'blue';
+    document.getElementById('teacherBox').style.color = 'white';
+    document.getElementById('studentBox').style.backgroundColor = '';
+    document.getElementById('studentBox').style.color = '';
+  }
+
+  function showStudentLogin() {
+    document.getElementById('studentForm').style.display = 'block';
+    document.getElementById('teacherForm').style.display = 'none';
+    document.getElementById('teacherRegister').style.display = 'none';
+    document.getElementById('studentRegister').style.display = 'block';
+    
+    // Highlight student box and reset teacher box
+    document.getElementById('studentBox').style.backgroundColor = 'blue';
+    document.getElementById('studentBox').style.color = 'white';
+    document.getElementById('teacherBox').style.backgroundColor = '';
+    document.getElementById('teacherBox').style.color = '';
+  }
+</script>
+{% endblock %}

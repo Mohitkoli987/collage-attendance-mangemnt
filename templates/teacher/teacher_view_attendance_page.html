@@ -1,0 +1,78 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}View Attendance{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    <h2 class="text-center mb-4">Attendance Records</h2>
+
+    <form method="POST" action="{{ url_for('view_attendance', course_id=course_id) }}">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <label for="start_date">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+            </div>
+            <div class="col-md-3">
+                <label for="end_date">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
+            </div>
+            <div class="col-md-3">
+                <label for="branch">Branch</label>
+                <select class="form-control" id="branch" name="branch">
+                    <option value="All">All Branches</option>
+                    {% for branch in branches %}
+                    <option value="{{ branch['branch'] }}">{{ branch['branch'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="section">Section</label>
+                <select class="form-control" id="section" name="section">
+                    <option value="All">All Sections</option>
+                    {% for section in sections %}
+                    <option value="{{ section['section'] }}">{{ section['section'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <a href="{{ url_for('download_attendance', course_id=course_id, start_date=request.form.get('start_date'), end_date=request.form.get('end_date'), branch=request.form.get('branch'), section=request.form.get('section')) }}" class="btn btn-primary mb-4">Download Attendance as Excel</a>
+
+
+    {% if grouped_attendance %}
+        {% for date, records in grouped_attendance.items() %}
+        <h3>{{ date }} <a href="{{ url_for('teacher_update_attendance', course_id=course_id, date=date) }}" class="btn btn-warning btn-sm float-end">Update Attendance</a></h3>
+        <table class="table table-striped mb-4">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Roll No</th>
+                    <th>Branch</th>
+                    <th>Section</th>
+                    <th>Present</th>
+                    <th>Attendance Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.name }}</td>
+                    <td>{{ record.roll_no }}</td>
+                    <td>{{ record.branch }}</td>
+                    <td>{{ record.section }}</td>
+                    <td>{{ 'Yes' if record.present else 'No' }}</td>
+                    <td>{{ attendance_percentages[record.roll_no] }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p>No attendance records found for the selected criteria.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "common/homebase.html" %}
+
+{% block title %}Teacher Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5"  style="margin-left: 50px; padding-top: 65px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <!-- Profile Picture -->
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename='uploads/' + teacher.profile_photo) }}"
+                     id="profile-photo"
+                     alt="Profile Photo"
+                     class="rounded-circle img-thumbnail"
+                     style="width: 150px; height: 150px; object-fit: cover;">
+            </div>
+
+            <!-- Custom Context Menu -->
+            <div id="profile-menu" class="context-menu d-none">
+                {% if teacher.profile_photo != 'nophoto.jpg' %}
+                <a href="#" id="change-photo" class="dropdown-item">Change Photo</a>
+                <a href="#" id="remove-photo" class="dropdown-item">Remove Photo</a>
+                {% else %}
+                <a href="#" id="upload-photo" class="dropdown-item">Upload Photo</a>
+                {% endif %}
+            </div>
+
+            <!-- Teacher Info -->
+            <h3 class="mt-3">{{ teacher.name }}</h3>
+            <p>Email: {{ teacher.email }}</p>
+            <p>Contact: {{ teacher.contact }}</p>
+            <p>Department: {{ teacher.department }}</p>
+
+            <!-- Edit Profile Button -->
+            <a href="{{ url_for('edit_teacher_profile') }}" class="btn btn-primary mt-3">Edit Profile</a>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Photo Context Menu Script -->
+<script>
+    const profilePhoto = document.getElementById('profile-photo');
+    const profileMenu = document.getElementById('profile-menu');
+
+    profilePhoto.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+        profileMenu.style.left = event.pageX + 'px';
+        profileMenu.style.top = event.pageY + 'px';
+        profileMenu.classList.remove('d-none');
+    });
+
+    document.addEventListener('click', function() {
+        profileMenu.classList.add('d-none');
+    });
+
+    document.getElementById('change-photo')?.addEventListener('click', function() {
+        window.location.href = "{{ url_for('edit_teacher_profile') }}";
+    });
+
+    document.getElementById('remove-photo')?.addEventListener('click', function() {
+        window.location.href = "{{ url_for('remove_teacher_photo') }}";
+    });
+
+    document.getElementById('upload-photo')?.addEventListener('click', function() {
+        window.location.href = "{{ url_for('edit_teacher_profile') }}";
+    });
+</script>
+
+<style>
+    .context-menu {
+        position: absolute;
+        z-index: 1000;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .context-menu a {
+        display: block;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .context-menu a:hover {
+        background-color: #f5f5f5;
+    }
+
+    .profile-container {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .profile-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .profile-card-header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px;
+    }
+
+    .profile-actions .btn {
+        width: 100%;
+    }
+
+    #profile-photo {
+        border: 3px solid #007bff;
+    }
+</style>
+{% endblock %}

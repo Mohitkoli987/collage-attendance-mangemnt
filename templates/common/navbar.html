@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <!-- Sidebar Icon -->
+        <button class="btn btn-outline-secondary me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="bi bi-list"></i> <!-- Bootstrap icon for sidebar (hamburger menu) -->
+        </button>
+        
+        <a class="navbar-brand" href="
+    {% if session.get('teacher_id') %}
+        {{ url_for('teacher_profile') }}
+    {% elif session.get('student_id') %}
+        {{ url_for('student_profile') }}
+    {% else %}
+        {{ url_for('home') }}
+    {% endif %}
+">
+    Attendance System
+</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <form class="d-flex" method="GET" action="{{ url_for('search') }}">
+                        <input class="form-control me-2" type="search" name="query" placeholder="Search users" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </li>
+
+                {% if session.get('teacher_id') %}
+                <!-- Show teacher's name instead of Home -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('teacher_profile') }}">
+                        {{ session.get('teacher_name', 'My Profile') }}
+                    </a>
+                </li>
+                {% elif session.get('student_id') %}
+                <!-- Show student's name instead of Home -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('student_profile') }}">
+                        {{ session.get('student_name', 'My Profile') }}
+                    </a>
+                </li>
+                {% else %}
+                <!-- Default Home link for not logged in users -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a> -->
+                </li>
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="{{ url_for('contact_us') }}">Contact Us</a> -->
+                </li>
+
+                {% if not session.get('teacher_id') and not session.get('student_id') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sign Up
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{{ url_for('teacher_signup') }}">Teacher Sign Up</a></li>
+                        <!-- <li><a class="dropdown-item" href="{{ url_for('teacher_login') }}">Teacher Login</a></li> -->
+                        <li><a class="dropdown-item" href="{{ url_for('student_signup') }}">Student Sign Up</a></li>
+                        <!-- <li><a class="dropdown-item" href="{{ url_for('student_login') }}">Student Login</a></li> -->
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if session.get('teacher_id') %}
+                            <img src="{{ url_for('static', filename='uploads/' + session.get('teacher_photo', 'nophoto.jpg')) }}" alt="Profile" class="rounded-circle" width="30" height="30">
+                        {% elif session.get('student_id') %}
+                            <img src="{{ url_for('static', filename='uploads/' + session.get('student_photo', 'nophoto.jpg')) }}" alt="Profile" class="rounded-circle" width="30" height="30">
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        {% if session.get('teacher_id') %}
+                        <li><a class="dropdown-item" href="{{ url_for('teacher_profile') }}">My Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('edit_teacher_profile') }}">Edit Profile</a></li>
+                        {% elif session.get('student_id') %}
+                        <li><a class="dropdown-item" href="{{ url_for('student_profile') }}">My Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('student_edit_profile') }}">Edit Profile</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

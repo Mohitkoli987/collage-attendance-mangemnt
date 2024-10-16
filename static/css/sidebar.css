@@ -1,0 +1,230 @@
+
+
+body {
+        margin: 0;
+        line-height: normal;
+        background-color: #F6F9FF; /* Background color for the entire page */
+    }
+.h2 {
+position: relative;
+line-height: 21px;
+font-weight: 600;
+}
+.attendance-sheet {
+        position: absolute;
+        top: 10.75px;
+        left: 41px;
+        line-height: 22.5px;
+        font-weight: 600;
+  }
+  .lucidefile-spreadsheet-icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 24px;
+        height: 24px;
+        overflow: hidden;
+  }
+  .a {
+        width: 260px;
+        position: relative;
+        border-radius: 4px;
+        background-color: #fff;
+        height: 44px;
+  }
+  .material-symbolstable-chart-v-icon {
+        position: absolute;
+        top: 11px;
+        left: 9px;
+        width: 26px;
+        height: 26px;
+        overflow: hidden;
+  }
+  .a1 {
+        width: 260px;
+        position: relative;
+        border-radius: 4px;
+        background-color: #f6f9ff;
+        height: 44px;
+        color: #4154f1;
+  }
+  .carbonreport-icon {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: 26px;
+        height: 26px;
+        overflow: hidden;
+  }
+  .div {
+        position: absolute;
+        top: 14px;
+        left: 15px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        width: 16.2px;
+        height: 16px;
+  }
+  .student {
+        position: absolute;
+        top: 10.75px;
+        left: 41px;
+        font-size: 15px;
+        line-height: 22.5px;
+        font-weight: 600;
+        font-family: 'Open Sans';
+        color: #012970;
+  }
+  .phstudent-bold-icon {
+        position: absolute;
+        top: 9px;
+        left: 8px;
+        width: 26px;
+        height: 26px;
+        overflow: hidden;
+  }
+  .a3 {
+        width: 260px;
+        position: relative;
+        border-radius: 4px;
+        background-color: #fff;
+        height: 44px;
+        font-size: 16px;
+        color: #899bbd;
+        font-family: Inter;
+  }
+  .icon-park-outlinelogout {
+        position: absolute;
+        top: 14px;
+        left: 11px;
+        width: 19px;
+        height: 19px;
+        overflow: hidden;
+  }
+  .a4 {
+        width: 260px;
+        position: relative;
+        border-radius: 4px;
+        background-color: #fff;
+        height: 43px;
+  }
+  .ulsidebar-nav {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+  }
+  .sidebar {
+        position: absolute;
+        top: 61px;
+        left: 0px;
+        box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+        background-color: #fff;
+        width: 300px;
+        height: 841px;
+        overflow: hidden;
+  }
+  .a10 {
+        position: absolute;
+        top: 490px;
+        left: 20px;
+        border-radius: 4px;
+        background-color: #fff;
+        width: 260px;
+        height: 43px;
+  }
+  .a11 {
+        position: absolute;
+        top: 394px;
+        left: 20px;
+        border-radius: 4px;
+        background-color: #fff;
+        width: 260px;
+        height: 43px;
+  }
+  .a13 {
+        position: absolute;
+        top: 439px;
+        left: 20px;
+        border-radius: 4px;
+        background-color: #fff;
+        width: 260px;
+        height: 43px;
+  }
+  .a14 {
+        position: absolute;
+        top: 343px;
+        left: 20px;
+        border-radius: 4px;
+        background-color: #fff;
+        width: 260px;
+        height: 43px;
+  }
+  .a15 {
+        position: absolute;
+        top: 300px;
+        left: 20px;
+        border-radius: 4px;
+        background-color: #fff;
+        width: 260px;
+        height: 43px;
+  }
+  /* .dashboard {
+        width: 100%;
+        position: relative;
+        background-color: #f6f9ff;
+        height: 900px;
+        overflow: hidden;
+        text-align: left;
+        font-size: 15px;
+        color: #012970;
+        font-family: 'Open Sans';
+  } */
+
+  .a {
+  	width: 100%;
+  	position: relative;
+  	border-radius: 4px;
+  	background-color: #fff;
+  	height: 43px;
+  	text-align: left;
+  	font-size: 15px;
+  	color: #012970;
+  	font-family: 'Open Sans';
+}
+
+.add-course {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+
+.view-students {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+
+.edit-profile {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+.edit-profile {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+  

@@ -1,0 +1,43 @@
+{% extends 'common/homebase2.html' %}
+
+{% block title %}Teacher Signup{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Teacher Signup</h2>
+    <form method="POST" action="{{ url_for('teacher_signup') }}">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="contact">Contact:</label>
+            <input type="text" class="form-control" id="contact" name="contact" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="department">Department:</label>
+            <select class="form-control" id="department" name="department" required>
+                <option value="">Select Department</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Computer Engineering">Computer Engineering</option>
+                <option value="Biomedical Engineering">Biomedical Engineering</option>
+                <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
+                <option value="Electronics and Computer Science Engineering">Electronics and Computer Science Engineering</option>
+            </select>
+        </div>
+        <div class="form-group mt-3">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Sign Up</button>
+    </form>
+</div>
+{% endblock %}

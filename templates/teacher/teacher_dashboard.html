@@ -1,0 +1,1036 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    .dashboard1 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	line-height: 28.8px;
+  	font-weight: 600;
+}
+.home {
+  	position: absolute;
+  	top: 1px;
+  	left: 0px;
+  	line-height: 21px;
+  	font-weight: 600;
+  	display: flex;
+  	align-items: center;
+  	width: 38.5px;
+  	height: 19px;
+}
+.div {
+  	position: relative;
+  	line-height: 21px;
+  	font-weight: 600;
+}
+.dashboard2 {
+  	position: relative;
+  	line-height: 21px;
+  	font-weight: 600;
+  	color: #444;
+}
+.li {
+  	position: absolute;
+  	top: 0px;
+  	left: 38.3px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 0px 0px 0px 8px;
+  	gap: 7.2px;
+}
+.ol {
+  	position: absolute;
+  	top: 28.8px;
+  	left: 0px;
+  	width: 1152px;
+  	height: 21px;
+  	font-size: 14px;
+  	color: #989797;
+}
+.bread-crumb {
+  	position: absolute;
+  	top: 85px;
+  	left: 440px;
+  	width: 1128px;
+  	height: 50px;
+  	font-size: 24px;
+  	font-family: Nunito;
+}
+.span {
+  	color: #27cda5;
+}
+.today {
+  	font-size: 14px;
+  	color: #899bbd;
+}
+.present-today-container {
+  	position: relative;
+  	line-height: 21.6px;
+}
+.h5 {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 20px 92.3px 14.6px 0px;
+}
+.div4 {
+  	position: absolute;
+  	top: 16px;
+  	left: 16px;
+  	line-height: 32px;
+  	display: flex;
+  	align-items: center;
+  	width: 32.2px;
+  	height: 32px;
+}
+.div3 {
+  	position: absolute;
+  	top: calc(50% - 32px);
+  	left: 0px;
+  	border-radius: 32px;
+  	background-color: #f6f6fe;
+  	width: 64px;
+  	height: 64px;
+}
+.b {
+  	position: relative;
+  	line-height: 33.6px;
+}
+.span1 {
+  	color: #198754;
+}
+.increase1 {
+  	color: #6c757d;
+}
+.increase {
+  	position: relative;
+  	font-size: 14px;
+  	line-height: 21px;
+  	color: #012970;
+  	font-family: 'Open Sans';
+}
+.div5 {
+  	position: absolute;
+  	top: calc(50% - 29.8px);
+  	left: 64px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 0px 3.5px 1px 16px;
+  	gap: 2.6px;
+  	font-size: 28px;
+  	font-family: Nunito;
+}
+.div2 {
+  	align-self: stretch;
+  	position: relative;
+  	height: 64px;
+  	font-size: 32px;
+  	font-family: Inter;
+}
+.div1 {
+  	flex: 1;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 0px 20px 20px;
+  	gap: 8px;
+}
+.present {
+  	position: absolute;
+  	top: 170px;
+  	left: 440px;
+  	box-shadow: 0px 0px 30px rgba(1, 41, 112, 0.1);
+  	border-radius: 5px;
+  	background-color: #fff;
+  	width: 212px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+}
+.absent {
+  	font-weight: 500;
+}
+.present2 {
+  	position: absolute;
+  	top: 170px;
+  	left: 684px;
+  	box-shadow: 0px 0px 30px rgba(1, 41, 112, 0.1);
+  	border-radius: 5px;
+  	background-color: #fff;
+  	width: 230px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+}
+.present3 {
+  	position: absolute;
+  	top: 170px;
+  	left: 948px;
+  	box-shadow: 0px 0px 30px rgba(1, 41, 112, 0.1);
+  	border-radius: 5px;
+  	background-color: #fff;
+  	width: 252px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+}
+.h53 {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 20px 110px 14.6px 0px;
+  	z-index: 0;
+}
+.image-icon {
+  	width: 348px;
+  	position: absolute;
+  	margin: 0 !important;
+  	top: 65px;
+  	left: 0px;
+  	height: 336px;
+  	object-fit: cover;
+  	z-index: 1;
+}
+.div16 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	width: 348px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: center;
+  	padding: 0px 20px;
+  	box-sizing: border-box;
+}
+.subjetcs {
+  	position: absolute;
+  	top: 170px;
+  	left: 1220px;
+  	box-shadow: 0px 0px 30px rgba(1, 41, 112, 0.1);
+  	border-radius: 5px;
+  	background-color: #fff;
+  	width: 348px;
+  	height: 402px;
+}
+.div17 {
+  	position: absolute;
+  	top: 19px;
+  	left: 724px;
+  	line-height: 16px;
+  	display: flex;
+  	align-items: center;
+  	width: 16.2px;
+  	height: 16px;
+}
+.h54 {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 20px 595px 14.6px 0px;
+}
+.svgjsline1009-icon {
+  	position: absolute;
+  	height: 83.86%;
+  	top: 7.45%;
+  	bottom: 8.69%;
+  	left: 3.37%;
+  	max-height: 100%;
+  	width: 0px;
+  	opacity: 0;
+}
+.svgjsline1086-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 96.49%;
+  	bottom: 6.52%;
+  	left: 3.37%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1087-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 82.14%;
+  	bottom: 6.52%;
+  	left: 17.72%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1088-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 67.79%;
+  	bottom: 6.52%;
+  	left: 32.07%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1089-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 53.44%;
+  	bottom: 6.52%;
+  	left: 46.42%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1090-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 39.09%;
+  	bottom: 6.52%;
+  	left: 60.76%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1091-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 24.75%;
+  	bottom: 6.52%;
+  	left: 75.11%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1092-icon {
+  	position: absolute;
+  	height: 1.86%;
+  	width: 0.14%;
+  	top: 91.62%;
+  	right: 10.4%;
+  	bottom: 6.52%;
+  	left: 89.46%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjstext1104 {
+  	position: absolute;
+  	top: 0%;
+  	left: 0%;
+}
+.svgjstext1107 {
+  	position: absolute;
+  	top: 0%;
+  	left: 15.95%;
+}
+.svgjstext1110 {
+  	position: absolute;
+  	top: 0%;
+  	left: 31.58%;
+}
+.svgjstext1113 {
+  	position: absolute;
+  	top: 0%;
+  	left: 47.38%;
+}
+.svgjstext1116 {
+  	position: absolute;
+  	top: 0%;
+  	left: 63.17%;
+}
+.svgjstext1119 {
+  	position: absolute;
+  	top: 0%;
+  	left: 78.96%;
+}
+.svgjstext1122 {
+  	position: absolute;
+  	top: 0%;
+  	left: 94.75%;
+}
+.svgjsg1102 {
+  	position: absolute;
+  	height: 100%;
+  	width: 100%;
+  	top: 0%;
+  	right: 0%;
+  	bottom: 0%;
+  	left: 0%;
+}
+.svgjsg1101 {
+  	position: absolute;
+  	height: 4.66%;
+  	width: 90.86%;
+  	top: 95.34%;
+  	right: 8.15%;
+  	bottom: 0%;
+  	left: 0.98%;
+}
+.svgjsg1082-icon {
+  	position: absolute;
+  	height: 83.55%;
+  	width: 93.26%;
+  	top: 7.76%;
+  	right: 3.37%;
+  	bottom: 8.69%;
+  	left: 3.37%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsg1015-icon {
+  	position: absolute;
+  	height: 98.76%;
+  	width: 100%;
+  	top: 0%;
+  	right: 0%;
+  	bottom: 1.24%;
+  	left: 0%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+  	object-fit: cover;
+}
+.svgjsg1085-icon {
+  	position: absolute;
+  	height: 84.17%;
+  	width: 93.26%;
+  	top: 7.45%;
+  	right: 3.37%;
+  	bottom: 8.38%;
+  	left: 3.37%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsline1145-icon {
+  	position: absolute;
+  	width: 93.26%;
+  	top: 7.45%;
+  	right: 3.37%;
+  	left: 3.37%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	height: 0px;
+  	opacity: 0;
+}
+.svgjsrect1150-icon {
+  	position: absolute;
+  	height: 31.04%;
+  	width: 14.03%;
+  	top: 7.45%;
+  	right: 82.6%;
+  	bottom: 61.51%;
+  	left: 3.37%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjsg1003 {
+  	position: absolute;
+  	height: 92.06%;
+  	width: 98.97%;
+  	top: 1.71%;
+  	right: -1.94%;
+  	bottom: 6.23%;
+  	left: 2.97%;
+}
+.svgjsrect1008-icon {
+  	position: absolute;
+  	height: 28.57%;
+  	width: 13.89%;
+  	top: 0%;
+  	right: 86.11%;
+  	bottom: 71.43%;
+  	left: 0%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.svgjstext1131 {
+  	position: absolute;
+  	top: 19.08%;
+  	left: 26.32%;
+}
+.svgjstext1134 {
+  	position: absolute;
+  	top: 38.16%;
+  	left: 26.32%;
+}
+.svgjstext1137 {
+  	position: absolute;
+  	top: 57.25%;
+  	left: 26.32%;
+}
+.svgjstext1140 {
+  	position: absolute;
+  	top: 76.33%;
+  	left: 26.32%;
+}
+.svgjstext1143 {
+  	position: absolute;
+  	top: 95.41%;
+  	left: 63.16%;
+}
+.svgjsg1125 {
+  	position: absolute;
+  	height: 80.91%;
+  	width: 2.64%;
+  	top: 5.86%;
+  	right: 95.09%;
+  	bottom: 13.23%;
+  	left: 2.27%;
+  	text-align: right;
+  	font-size: 11px;
+}
+.svgjssvg1001 {
+  	position: absolute;
+  	top: 0px;
+  	left: calc(50% - 360px);
+  	width: 720px;
+  	height: 350px;
+}
+.svgsvgjssvg1001 {
+  	width: 720px;
+  	position: relative;
+  	height: 350px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	text-align: center;
+  	font-size: 12px;
+  	color: #444;
+  	font-family: Inter;
+}
+.div18 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 0px 20px 35px;
+  	gap: 8px;
+  	font-size: 18px;
+  	color: #4154f1;
+  	font-family: Poppins;
+}
+.report-month {
+  	position: absolute;
+  	top: 374px;
+  	left: 440px;
+  	box-shadow: 0px 0px 30px rgba(1, 41, 112, 0.1);
+  	border-radius: 5px;
+  	background-color: #fff;
+  	width: 760px;
+  	height: 449.6px;
+  	font-size: 16px;
+  	color: #aab7cf;
+  	font-family: Inter;
+}
+.track {
+  	position: relative;
+  	line-height: 16.5px;
+  	text-transform: uppercase;
+  	font-weight: 600;
+}
+.attendance-sheet {
+  	position: absolute;
+  	top: 10.75px;
+  	left: 41px;
+  	line-height: 22.5px;
+  	font-weight: 600;
+}
+.lucidefile-spreadsheet-icon {
+  	position: absolute;
+  	top: 10px;
+  	left: 10px;
+  	width: 24px;
+  	height: 24px;
+  	overflow: hidden;
+}
+.a {
+  	width: 260px;
+  	position: relative;
+  	border-radius: 4px;
+  	background-color: #fff;
+  	height: 44px;
+  	cursor: pointer;
+  	font-size: 15px;
+  	color: #012970;
+}
+.material-symbolstable-chart-v-icon {
+  	position: absolute;
+  	top: 11px;
+  	left: 9px;
+  	width: 26px;
+  	height: 26px;
+  	overflow: hidden;
+}
+.a1 {
+  	width: 260px;
+  	position: relative;
+  	border-radius: 4px;
+  	background-color: #f6f9ff;
+  	height: 44px;
+  	font-size: 15px;
+  	color: #4154f1;
+}
+.carbonreport-icon {
+  	position: absolute;
+  	top: 8px;
+  	left: 8px;
+  	width: 26px;
+  	height: 26px;
+  	overflow: hidden;
+}
+.div19 {
+  	position: absolute;
+  	top: 14px;
+  	left: 15px;
+  	line-height: 16px;
+  	display: flex;
+  	align-items: center;
+  	width: 16.2px;
+  	height: 16px;
+}
+.student {
+  	position: absolute;
+  	top: 10.75px;
+  	left: 41px;
+  	font-size: 15px;
+  	line-height: 22.5px;
+  	font-weight: 600;
+  	font-family: 'Open Sans';
+  	color: #012970;
+}
+.phstudent-bold-icon {
+  	position: absolute;
+  	top: 9px;
+  	left: 8px;
+  	width: 26px;
+  	height: 26px;
+  	overflow: hidden;
+}
+/* .a3 {
+  	width: 260px;
+  	position: relative;
+  	border-radius: 4px;
+  	background-color: #fff;
+  	height: 44px;
+  	font-size: 16px;
+  	font-family: Inter;
+}
+.icon-park-outlinelogout {
+  	position: absolute;
+  	top: 14px;
+  	left: 11px;
+  	width: 19px;
+  	height: 19px;
+  	overflow: hidden;
+}
+.a4 {
+  	width: 260px;
+  	position: relative;
+  	border-radius: 4px;
+  	background-color: #fff;
+  	height: 43px;
+  	font-size: 15px;
+  	color: #012970;
+}
+.ulsidebar-nav {
+  	position: absolute;
+  	top: 20px;
+  	left: 20px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+}
+.sidebar {
+  	position: absolute;
+  	top: 59px;
+  	left: 0px;
+  	box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+  	background-color: #fff;
+  	width: 300px;
+  	height: 841px;
+  	overflow: hidden;
+  	font-size: 11px;
+  	color: #899bbd;
+  	font-family: 'Open Sans';
+}
+.attendify {
+  	position: absolute;
+  	top: -5px;
+  	left: 30.5px;
+  	line-height: 26px;
+  	display: flex;
+  	align-items: center;
+  	width: 131.8px;
+  	height: 35px;
+}
+.a5 {
+  	width: 280px;
+  	position: relative;
+  	height: 26px;
+}
+.div20 {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	padding: 8px 0px;
+}
+.div21 {
+  	position: absolute;
+  	top: 10.5px;
+  	left: 290px;
+  	line-height: 16px;
+}
+.form {
+  	width: 456px;
+  	position: relative;
+  	height: 37px;
+  	text-align: center;
+  	font-size: 16px;
+  	font-family: Inter;
+}
+.bell-icon {
+  	width: 24px;
+  	position: relative;
+  	height: 24px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	z-index: 0;
+}
+.span6 {
+  	width: calc(100% - 5.1px);
+  	margin: 0 !important;
+  	position: absolute;
+  	height: calc(100% - 17px);
+  	top: -1px;
+  	right: -22.9px;
+  	bottom: 18px;
+  	left: 28px;
+  	border-radius: 6px;
+  	background-color: #0d6efd;
+  	transform:  rotate(180deg);
+  	transform-origin: 0 0;
+  	z-index: 1;
+}
+.a6 {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 5.8px 0px 5.3px;
+  	position: relative;
+}
+.span7 {
+  	width: calc(100% - 5.1px);
+  	margin: 0 !important;
+  	position: absolute;
+  	height: calc(100% - 17px);
+  	top: -1px;
+  	right: -22.9px;
+  	bottom: 18px;
+  	left: 28px;
+  	border-radius: 6px;
+  	background-color: #198754;
+  	transform:  rotate(180deg);
+  	transform-origin: 0 0;
+  	z-index: 1;
+}
+.profile-imgjpg-icon {
+  	position: absolute;
+  	top: calc(50% - 18px);
+  	left: 0px;
+  	border-radius: 18px;
+  	width: 36px;
+  	height: 36px;
+  	object-fit: cover;
+}
+.praful {
+  	position: absolute;
+  	top: 0px;
+  	left: 8px;
+  	line-height: 21px;
+  	font-weight: 600;
+}
+.span8 {
+  	position: absolute;
+  	top: calc(50% - 10.5px);
+  	left: 36px;
+  	width: 101.6px;
+  	height: 21px;
+}
+.a8 {
+  	width: 137.6px;
+  	position: relative;
+  	height: 36px;
+}
+.ul {
+  	flex: 1;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-end;
+  	padding: 0px 16px 0px 0px;
+  	gap: 25px;
+  	font-size: 14px;
+  	font-family: 'Open Sans';
+}
+.headerheader {
+  	position: absolute;
+  	top: 1px;
+  	left: 0px;
+  	box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  	background-color: #fff;
+  	width: 1648px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	padding: 9px 20px;
+  	box-sizing: border-box;
+  	font-size: 26px;
+  	color: #012970;
+  	font-family: Nunito;
+}
+.dashboard {
+  	width: 100%;
+  	position: relative;
+  	background-color: #f6f9ff;
+  	height: 900px;
+  	overflow: hidden;
+  	text-align: left;
+  	font-size: 18px;
+  	color: #4154f1;
+  	font-family: Poppins;
+}
+.my-courses {
+  	position: absolute;
+  	top: 10.75px;
+  	left: 41px;
+  	line-height: 22.5px;
+  	font-weight: 600;
+}
+.icon-park-outlinelogout {
+  	position: absolute;
+  	top: 14px;
+  	left: 11px;
+  	width: 19px;
+  	height: 19px;
+  	overflow: hidden;
+}
+.a {
+  	width: 100%;
+  	position: relative;
+  	border-radius: 4px;
+  	background-color: #fff;
+  	height: 43px;
+  	text-align: left;
+  	font-size: 15px;
+  	color: #012970;
+  	font-family: 'Open Sans';
+}
+
+.add-course {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+
+.view-students {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+
+.edit-profile {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+}
+.edit-profile {
+position: absolute;
+top: 10.75px;
+left: 41px;
+line-height: 22.5px;
+font-weight: 600;
+} */
+
+</style>
+
+
+
+<div class="dashboard">
+    <div class="bread-crumb">
+        <div class="dashboard1">Dashboard</div>
+        <div class="ol">
+            <div class="home">Home</div>
+            <div class="li">
+                <div class="div">/</div>
+                <div href="{{ url_for('teacher_dashboard') }}" class="dashboard2">Dashboard</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="present">
+        <div class="div1">
+            <div class="h5">
+                <div class="present-today-container">
+                    <span class="absent">
+                        <span>Present</span>
+                        <span class="span"> </span>
+                    </span>
+                    <span class="today">| Today</span>
+                </div>
+            </div>
+            <div class="div2">
+                <div class="div3">
+                    <div class="div4"></div>
+                </div>
+                <div class="div5">
+                    <b class="b">{{ present_count }}</b>
+                    <div class="increase">
+                        <b>
+                            <span>{{ present_increase }}%</span>
+                            <span class="span1"> </span>
+                        </b>
+                        <span class="increase1">increase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Absent Section -->
+    <div class="present2">
+        <div class="div1">
+            <div class="h5">
+                <div class="present-today-container">
+                    <span class="absent">
+                        <span>Absent</span>
+                        <span class="span"> </span>
+                    </span>
+                    <span class="today">| Today</span>
+                </div>
+            </div>
+            <div class="div2">
+                <div class="div3">
+                    <div class="div4"></div>
+                </div>
+                <div class="div5">
+                    <b class="b">{{ absent_count }}</b>
+                    <div class="increase">
+                        <b>
+                            <span>{{ absent_increase }}%</span>
+                            <span class="span1"> </span>
+                        </b>
+                        <span class="increase1">increase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--   
+    <div class="sidebar">
+        <div class="ulsidebar-nav">
+           
+            <div class="a" id="aContainer">
+                <a href="{{ url_for('teacher_take_attendance_initial') }}" class="attendance-sheet">Attendance Sheet</a>
+                <img class="lucidefile-spreadsheet-icon" alt="" src="lucide:file-spreadsheet.svg">
+            </div>
+           
+            <div class="a1">
+                <img class="material-symbolstable-chart-v-icon" alt="" src="material-symbols:table-chart-view-outline-rounded.svg">
+                <div href="{{ url_for('teacher_dashboard') }}" class="attendance-sheet">Dashboard</div>
+            </div>
+            <div class="a" id="aContainer2">
+                <div class="attendance-sheet">Report</div>
+                <img class="carbonreport-icon" alt="" src="carbon:report.svg">
+            </div>
+         
+            <div class="a3">
+                
+                <a href="{{ url_for('my_courses') }}" class="student">my courses</a>
+                <img class="phstudent-bold-icon" alt="" src="ph:student-bold.svg">
+            
+                
+            </div>
+           
+            <div class="a4">
+                <div class="attendance-sheet">Logout</div>
+                <img class="icon-park-outlinelogout" alt="" src="icon-park-outline:logout.svg">
+            </div>
+			<div class="a">
+				<div class="add-course">My courses</div>
+				<img class="icon-park-outlinelogout" alt="" src="icon-park-outline:logout.svg">
+			</div>
+			<div class="a">
+				<div class="add-course">add course</div>
+				<img class="icon-park-outlinelogout" alt="" src="icon-park-outline:logout.svg">
+			</div>
+			<div class="a">
+				<div class="view-students">view students</div>
+				<img class="icon-park-outlinelogout" alt="" src="icon-park-outline:logout.svg">
+				</div>
+			<div class="a">
+					<div class="edit-profile">edit profile</div>
+					<img class="icon-park-outlinelogout" alt="" src="icon-park-outline:logout.svg">
+				</div>
+				<div class="a">
+					<div class="edit-profile">edit profile</div>
+					<img class="icon-park-outlinelogout" alt="" src="icon-park-outline:logout.svg">
+					</div>
+					
+        </div>
+    </div> -->
+</div>
+
+<script>
+    document.getElementById("aContainer").addEventListener("click", function () {
+        // Logic for Attendance Sheet
+    });
+    document.getElementById("aContainer2").addEventListener("click", function () {
+        // Logic for Report
+    });
+</script>
+
+{% endblock %}

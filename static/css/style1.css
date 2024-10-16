@@ -1,0 +1,267 @@
+.rectangle {
+    position: absolute;
+    top: 56px;
+    left: -9px;
+    background-color: #edf1f7;
+    width: 1657px;
+    height: 844px;
+  }
+  .attendance {
+    position: absolute;
+    top: 325px;
+    left: 129px;
+    line-height: 76.8px;
+    display: inline-block;
+    width: 345px;
+  }
+  .for-your-business {
+    position: absolute;
+    top: 390px;
+    left: 129px;
+    line-height: 76.8px;
+    color: #012970;
+    display: inline-block;
+    width: 516px;
+  }
+  .lorem-ipsum-dolor {
+    position: absolute;
+    top: 500px;
+    left: 129px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #757f8e;
+    display: inline-block;
+    width: 621px;
+  }
+  .component-35-child {
+    width: 24px;
+    position: relative;
+    height: 24px;
+  }
+  .teacher {
+    flex: 1;
+    position: relative;
+  }
+  .component-35 {
+    width: 207px;
+    border-radius: 8px;
+    background-color: #f0f4fb;
+    border: 1px solid #5f6ef1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 8px;
+    gap: 12px;
+  }
+  .component-37 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 39px;
+    color: #3c4ef1;
+  }
+  .rectangle1 {
+    position: absolute;
+    top: 33px;
+    left: 0px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    width: 526px;
+    height: 38px;
+  }
+  .username {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 24px;
+    display: inline-block;
+    width: 71px;
+  }
+  .rectangle-parent {
+    width: 526px;
+    position: relative;
+    height: 71px;
+    font-size: 15px;
+  }
+  .rectangle2 {
+    position: absolute;
+    top: 32px;
+    left: 0px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    width: 526px;
+    height: 38px;
+  }
+  .password {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 24px;
+    display: inline-block;
+    width: 66px;
+  }
+  .rectangle-group {
+    width: 526px;
+    position: relative;
+    height: 70px;
+  }
+  .image-icon {
+    position: absolute;
+    top: 4px;
+    left: 0px;
+    border-radius: 4px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+  }
+  .remember-me {
+    position: absolute;
+    top: 0px;
+    left: 24px;
+    line-height: 24px;
+    display: inline-block;
+    width: 103px;
+  }
+  .image-parent {
+    width: 127px;
+    position: relative;
+    height: 24px;
+    font-size: 15px;
+  }
+  .rectangle-icon {
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    border-radius: 4px;
+    width: 74px;
+    height: 38px;
+  }
+  .sign-in {
+    position: absolute;
+    top: 6px;
+    left: 13px;
+    line-height: 24px;
+    display: inline-block;
+    width: 48px;
+  }
+  .rectangle-container {
+    width: 74px;
+    position: relative;
+    height: 38px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+  }
+  .forgot-password {
+    width: 110px;
+    position: relative;
+    font-size: 13px;
+    line-height: 21px;
+    color: #6c757d;
+    display: inline-block;
+  }
+  .dont-have-an {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 24px;
+    display: inline-block;
+    width: 170px;
+  }
+  .register-here {
+    position: absolute;
+    top: 0px;
+    left: 170px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #0dcaf0;
+    display: inline-block;
+    width: 93px;
+  }
+  .dont-have-an-account-parent {
+    width: 263px;
+    position: relative;
+    height: 24px;
+    font-size: 16px;
+  }
+  .component-37-parent {
+    position: absolute;
+    top: 163px;
+    left: 873px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 48px 49px;
+    gap: 26px;
+    font-size: 14px;
+  }
+  .attendify {
+    position: absolute;
+    top: -5px;
+    left: 30.5px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    width: 131.8px;
+    height: 35px;
+  }
+  .a {
+    width: 280px;
+    position: relative;
+    height: 26px;
+  }
+  .div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 0px;
+  }
+  .headerheader {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+    background-color: #fff;
+    width: 1648px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 9px 20px;
+    box-sizing: border-box;
+    font-size: 26px;
+    color: #012970;
+    font-family: Nunito;
+  }
+  .login {
+    width: 100%;
+    position: relative;
+    background-color: #f0f4fb;
+    height: 900px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 64px;
+    color: #212529;
+    font-family: Roboto;
+  }
+  
+  
+
+
+
+
+
+  

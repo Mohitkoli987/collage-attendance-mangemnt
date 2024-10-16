@@ -1,0 +1,92 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}Add Student to Course{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    <h2 class="text-center mb-4">Add Student to Course</h2>
+    
+    <!-- Search form -->
+    <form method="get" action="{{ url_for('add_student_to_course', course_id=course_id) }}">
+        <div class="mb-3">
+            <label for="searchQuery" class="form-label">Search Student</label>
+            <input type="text" class="form-control" id="searchQuery" name="query" placeholder="Enter student name or roll number" value="{{ query }}">
+            <input type="hidden" name="course_id" value="{{ course_id }}">
+        </div>
+
+        <!-- Section -->
+        <div class="mb-3">
+            <label for="section" class="form-label">Section</label>
+            <select class="form-control" id="section" name="section">
+                <option value="">Select Section</option>
+                <option value="A" {% if section == 'A' %}selected{% endif %}>A</option>
+                <option value="B" {% if section == 'B' %}selected{% endif %}>B</option>
+                <option value="C" {% if section == 'C' %}selected{% endif %}>C</option>
+            </select>
+        </div>
+
+        <!-- Year -->
+        <div class="mb-3">
+            <label for="year" class="form-label">Year</label>
+            <select class="form-control" id="year" name="year">
+                <option value="">Select Year</option>
+                <option value="1" {% if year == '1' %}selected{% endif %}>1st</option>
+                <option value="2" {% if year == '2' %}selected{% endif %}>2nd</option>
+                <option value="3" {% if year == '3' %}selected{% endif %}>3rd</option>
+                <option value="4" {% if year == '4' %}selected{% endif %}>4th</option>
+            </select>
+        </div>
+
+        <!-- Branch -->
+        <div class="mb-3">
+            <label for="branch" class="form-label">Branch</label>
+            <select class="form-control" id="branch" name="branch">
+                <option value="">Select Branch</option>
+                <option value="CMPN" {% if branch == 'CMPN' %}selected{% endif %}>CMPN</option>
+                <option value="INFT" {% if branch == 'INFT' %}selected{% endif %}>INFT</option>
+                <option value="EXTC" {% if branch == 'EXTC' %}selected{% endif %}>EXTC</option>
+                <option value="EXCS" {% if branch == 'EXCS' %}selected{% endif %}>EXCS</option>
+                <option value="BIOM" {% if branch == 'BIOM' %}selected{% endif %}>BIOM</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+    <!-- Display search results if students are found -->
+    {% if students %}
+    <div class="mt-4">
+        <h4 class="text-center mb-3">Search Results</h4>
+        <form method="post" action="{{ url_for('add_student_to_course', course_id=course_id) }}">
+            <ul class="list-group">
+                {% for student in students %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- Display Profile Picture -->
+                        <img src="{{ url_for('static', filename='uploads/' + (student['photo'] or 'nophoto.jpg')) }}" alt="{{ student['name'] }}'s photo" class="rounded-circle me-3" width="50" height="50">
+                        <div>
+                            <h5 class="mb-1">{{ student.name }}</h5>
+                            <p class="mb-1">Roll No: {{ student.roll_no }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        {% if student.enrolled %}
+                            <span class="badge bg-success">Enrolled</span>
+                        {% else %}
+                            <input type="checkbox" name="student_ids" value="{{ student.id }}">
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="mt-3">
+                <input type="hidden" name="action" value="add">
+                <button type="submit" class="btn btn-success">Add Selected Students</button>
+            </div>
+        </form>
+    </div>
+    {% elif query or section or year or branch %}
+    <p class="text-center text-warning">No students found matching your criteria.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+
+{% extends 'common/homebase.html' %}
+
+{% block title %}Apply for absence{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5"  style="margin-left: 50px; padding-top: 65px;">
+    <h2>Apply for Absence</h2>
+    <form method="POST" action="{{ url_for('apply_absence') }}">
+        <div class="form-group mb-3">
+            <label for="teacher_id">Select Teacher</label>
+            <select name="teacher_id" class="form-control">
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.name }} ({{ teacher.department }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group mb-3">
+            <label for="date_of_application">Date of Application</label>
+            <input type="date" name="date_of_application" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="number_of_days">Number of Days</label>
+            <input type="number" name="number_of_days" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="reason">Reason for Absence</label>
+            <textarea name="reason" class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Application</button>
+    </form>
+</div>
+{% endblock %}

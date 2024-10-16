@@ -1,0 +1,185 @@
+<div class="sidebar">
+    <div class="ulsidebar-nav">
+        {% if session.get('teacher_id') %}
+        <!-- Teacher Sidebar -->
+        <div class="a" id="aContainer">
+            <a href="{{ url_for('teacher_profile') }}" class="attendance-sheet">My Profile</a>
+            <img class="lucidefile-spreadsheet-icon" alt="" src="{{ url_for('static', filename='uploads/my profile.jpg') }}">
+        </div>
+
+        <div class="a">
+            <img class="material-symbolstable-chart-v-icon" alt="" src="{{ url_for('static', filename='uploads/dashboard.png') }}">
+            <a href="{{ url_for('teacher_dashboard') }}" class="attendance-sheet">Dashboard</a>
+        </div>
+
+        <div class="a" >
+            <a href="{{ url_for('my_courses') }}" class="attendance-sheet">My courses</a>
+            <img class="carbonreport-icon" alt="" src="{{ url_for('static', filename='uploads/my courses.jpg') }}">
+        </div>
+
+        <div class="a">
+            <a href="{{ url_for('add_course') }}" class="attendance-sheet">Add Course</a>
+            <img class="phstudent-bold-icon" alt="" src="{{ url_for('static', filename='uploads/addcourse.jpg') }}">
+        </div>
+
+        <div class="a">
+            <a href="{{ url_for('view_student_applications')}}" class="view-students">View applications</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/view.jpg') }}">
+        </div>
+
+        <div class="a">
+            <a href="{{ url_for('edit_teacher_profile') }}" class="edit-profile">Update Profile</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/update profile.jpg') }}">
+        </div>
+
+        <div class="a4">
+            <a href="{{ url_for('logout') }}" class="attendance-sheet">Logout</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/logout.png') }}">
+        </div>
+
+        {% elif session.get('student_id') %}
+        <!-- Student Sidebar -->
+        <div class="a">
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/my profile.jpg') }}">
+            <a href="{{ url_for('student_profile') }}" class="attendance-sheet">My Profile</a>
+        </div>
+
+        <div class="a">
+            <a href="{{ url_for('view_enrolled_courses') }}" class="attendance-sheet">My Courses</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/my courses.jpg') }}">
+        </div>
+
+        <div class="a">
+            <a href="{{ url_for('student_courses') }}" class="edit-profile">Available Courses</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/available courses.jpg') }}">
+        </div>
+
+        <div class="a" >
+            <a href="{{ url_for('apply_absence') }}" class="attendance-sheet">Absence Reason</a>
+            <img class="carbonreport-icon" alt="" src="{{ url_for('static', filename='uploads/absencereason.png') }}">
+        </div>
+
+        <div class="a3">
+            <a href="{{ url_for('view_application_status') }}" class="attendance-sheet">Application Status</a>
+            <img class="phstudent-bold-icon" alt="" src="{{ url_for('static', filename='uploads/view.jpg') }}">
+        </div>
+
+        <div class="a">
+            <a href="{{ url_for('student_edit_profile') }}" class="edit-profile">Update Profile</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/update profile.jpg') }}">
+        </div>
+
+        <div class="a4">
+            <a href="{{ url_for('logout') }}" class="attendance-sheet">Logout</a>
+            <img class="icon-park-outlinelogout" alt="" src="{{ url_for('static', filename='uploads/logout.png') }}">
+        </div>
+
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add your script to highlight the active link and fix the sidebar position on scroll -->
+<script>
+    // Function to add 'a1' class to the active link
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebarLinks = document.querySelectorAll('.sidebar .a');
+        const currentPath = window.location.pathname;
+
+        sidebarLinks.forEach(link => {
+            const href = link.querySelector('a').getAttribute('href');
+            if (currentPath === href) {
+                link.classList.add('a1'); // Add 'a1' class for active link
+            }
+        });
+    });
+
+    // Fix sidebar position on scroll
+    window.addEventListener('scroll', function () {
+        const sidebar = document.querySelector('.sidebar');
+        const scrollPosition = window.scrollY;
+
+        // Stick the sidebar to the bottom when scrolled down
+        if (scrollPosition > 100) {
+            sidebar.style.position = 'fixed';
+            sidebar.style.bottom = '0';
+            sidebar.style.top = 'auto';
+        } else {
+            // Reset to original position when at the top
+            sidebar.style.position = 'absolute';
+            sidebar.style.top = '61px';
+            sidebar.style.bottom = 'auto';
+        }
+    });
+</script>
+
+<style>
+    body {
+        margin: 0;
+        line-height: normal;
+        background-color: #F6F9FF;
+    }
+
+    .h2 {
+        position: relative;
+        line-height: 21px;
+        font-weight: 600;
+    }
+
+    .attendance-sheet, .add-course, .view-students, .edit-profile {
+        position: absolute;
+        top: 10.75px;
+        left: 41px;
+        line-height: 22.5px;
+        font-weight: 600;
+        font-family: 'Open Sans';
+        text-decoration: none;
+    }
+
+    .lucidefile-spreadsheet-icon,
+    .material-symbolstable-chart-v-icon,
+    .carbonreport-icon,
+    .phstudent-bold-icon,
+    .icon-park-outlinelogout {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 24px;
+        height: 24px;
+        overflow: hidden;
+    }
+
+    .a, .a1, .a3, .a4 {
+        width: 260px;
+        position: relative;
+        border-radius: 4px;
+        background-color: #fff;
+        height: 44px;
+    }
+
+    .a1 {
+        background-color: #f6f9ff;
+        color: #4154f1;
+        font-weight: bold;
+    }
+
+    .ulsidebar-nav {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .sidebar {
+        position: absolute;
+        top: 61px;
+        left: 0px;
+        box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+        background-color: #fff;
+        width: 300px;
+        height: 841px;
+        overflow: hidden;
+    }
+</style>

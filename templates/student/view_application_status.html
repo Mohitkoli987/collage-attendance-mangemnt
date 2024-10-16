@@ -1,0 +1,33 @@
+
+{% extends 'common/homebase.html' %}
+
+{% block title %}application status{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    <h2>Your Absence Applications</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Teacher</th>
+            <th>Date of Application</th>
+            <th>Number of Days</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.teacher_name }}</td>
+                <td>{{ application.date_of_application }}</td>
+                <td>{{ application.number_of_days }}</td>
+                <td>{{ application.reason }}</td>
+                <td>{{ application.status }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
