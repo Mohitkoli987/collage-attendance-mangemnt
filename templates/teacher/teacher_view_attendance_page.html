@@ -4,6 +4,18 @@
 
 {% block content %}
 <div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    
+    <div class="course-details mb-4">
+        <h3>{{ course_name }}</h3>
+        <p>
+            <strong>Course ID:</strong> {{ course_id }} <br>
+            <strong>Day:</strong> {{ course_day }} <br>
+            <strong>Time Slot:</strong> {{ course_time }} <br>
+            <strong>Branch:</strong> {{ course_branch }} <br>
+            <strong>Year:</strong> {{ course_year }} <br>
+            <strong>Section:</strong> {{ course_section }}
+        </p>
+    </div>
     <h2 class="text-center mb-4">Attendance Records</h2>
 
     <form method="POST" action="{{ url_for('view_attendance', course_id=course_id) }}">
@@ -41,7 +53,7 @@
     </form>
 
     <a href="{{ url_for('download_attendance', course_id=course_id, start_date=request.form.get('start_date'), end_date=request.form.get('end_date'), branch=request.form.get('branch'), section=request.form.get('section')) }}" class="btn btn-primary mb-4">Download Attendance as Excel</a>
-
+    <a href="{{ url_for('notify_students', course_id=course_id, start_date=request.form.get('start_date'), end_date=request.form.get('end_date'), branch=request.form.get('branch'), section=request.form.get('section')) }}" class="btn btn-danger mb-4">Notify Students</a>
 
     {% if grouped_attendance %}
         {% for date, records in grouped_attendance.items() %}
@@ -49,7 +61,7 @@
         <table class="table table-striped mb-4">
             <thead>
                 <tr>
-                    <th>Student Name</th>
+                    <th>Name</th>
                     <th>Roll No</th>
                     <th>Branch</th>
                     <th>Section</th>
@@ -60,7 +72,8 @@
             <tbody>
                 {% for record in records %}
                 <tr>
-                    <td>{{ record.name }}</td>
+                    <td>{{ record.first_name }} {{ record.last_name }}</td>
+                    
                     <td>{{ record.roll_no }}</td>
                     <td>{{ record.branch }}</td>
                     <td>{{ record.section }}</td>

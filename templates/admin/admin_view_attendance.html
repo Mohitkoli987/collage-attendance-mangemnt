@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - View Attendance</title>
+
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Internal CSS for Styling -->
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        h3 {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h3 a {
+            font-size: 14px;
+            text-decoration: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .no-records {
+            text-align: center;
+            color: red;
+            margin-top: 20px;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Admin - View Attendance</h2>
+
+    <!-- Form to select course and date range -->
+    <form method="POST" action="{{ url_for('admin_view_attendance') }}">
+        <div class="form-group">
+            <label for="course_id">Select Course:</label>
+            <select id="course_id" name="course_id" class="form-control" required>
+                <option value="" disabled>Choose Course</option>
+                {% for course in courses %}
+                    <option value="{{ course.id }}" {% if course.id == course_id %} selected {% endif %}>
+                        {{ course.name }} - {{ course.teacher_name }} | {{ course.branch }} | Year {{ course.year }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}" required>
+        </div>
+        <button type="submit" class="btn-primary">View Attendance</button>
+    </form>
+
+    <!-- Display attendance records if available -->
+    {% if grouped_attendance %}
+        {% for date, records in grouped_attendance.items() %}
+        <h3>{{ date }} 
+            <a href="{{ url_for('admin_update_attendance', course_id=course_id, date=date) }}" class="btn-warning">Update Attendance</a>
+        </h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Roll No</th>
+                    <th>Branch</th>
+                    <th>Section</th>
+                    <th>Present</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.first_name }} {{ record.last_name }}</td>
+                    <td>{{ record.roll_no }}</td>
+                    <td>{{ record.branch }}</td>
+                    <td>{{ record.section }}</td>
+                    <td>{{ 'Yes' if record.present else 'No' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p class="no-records">No attendance records found for the selected criteria.</p>
+    {% endif %}
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Initialize Select2 on the course dropdown -->
+    <script>
+        $(document).ready(function() {
+            $('#course_id').select2({
+                placeholder: 'Choose Course',
+                allowClear: true
+            });
+        });
+    </script>
+
+</body>
+</html>

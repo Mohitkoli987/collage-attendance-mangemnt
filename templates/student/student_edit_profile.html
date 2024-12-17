@@ -6,10 +6,22 @@
         <div class="col-md-6">
             <h3>Edit Profile</h3>
             <form method="POST" enctype="multipart/form-data" action="{{ url_for('student_edit_profile') }}">
-                <!-- Name -->
+                <!-- First Name -->
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}" required>
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ student.first_name }}" required>
+                </div>
+
+                <!-- Middle Name -->
+                <div class="form-group mt-3">
+                    <label for="middle_name">Middle Name (optional)</label>
+                    <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ student.middle_name }}">
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group mt-3">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ student.last_name }}" required>
                 </div>
 
                 <!-- Roll Number -->

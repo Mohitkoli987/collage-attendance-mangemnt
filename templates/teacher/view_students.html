@@ -34,9 +34,9 @@
             {% for student in students %}
             <tr>
                 <td>
-                    <img src="{{ url_for('static', filename='uploads/' + (student['photo'] or 'nophoto.jpg')) }}" alt="{{ student.name }}'s photo" class="rounded-circle" width="50" height="50">
+                    <img src="{{ url_for('static', filename='uploads/' + (student['photo'] or 'nophoto.jpg')) }}" alt="{{ student.first_name }} {{ student.last_name }}'s photo" class="rounded-circle" width="50" height="50">
                 </td>
-                <td>{{ student.name }}</td>
+                <td>{{ student.first_name }} {{ student.last_name }}</td>
                 <td>{{ student.roll_no }}</td>
                 <td>{{ student.branch }}</td>
                 <td>{{ student.year }}</td>

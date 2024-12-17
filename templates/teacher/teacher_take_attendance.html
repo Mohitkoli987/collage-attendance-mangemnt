@@ -4,7 +4,45 @@
 
 {% block content %}
 <div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert-messages">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <!-- Display Course Details -->
+    <div class="course-details mb-4">
+        <h3>{{ course_name }}</h3>
+        <p>
+            <strong>Course ID:</strong> {{ course_id }} <br>
+            <strong>Day:</strong> {{ course_day }} <br>
+            <strong>Time Slot:</strong> {{ course_time }} <br>
+            <strong>Branch:</strong> {{ course_branch }} <br>
+            <strong>Year:</strong> {{ course_year }} <br>
+            <strong>Section:</strong> {{ course_section }}
+        </p>
+    </div>
+
     <h2 class="text-center mb-4">Take Attendance</h2>
+
+    <style>
+        /* Highlight selected student with blue theme */
+        .highlight-selected {
+            background-color: #e7f3ff; /* Light blue background for selection */
+            border: 1px solid #007bff; /* Border to match the button color */
+        }
+        .highlight-selected .status-label {
+            color: #007bff; /* Match blue for text */
+        }
+        .highlight-selected:hover {
+            background-color: #d6eaff; /* Slightly darker on hover */
+        }
+    </style>
 
     <form method="POST" action="{{ url_for('teacher_take_attendance', course_id=course_id) }}">
         <div class="mb-3">
@@ -13,28 +51,115 @@
         </div>
 
         <h4 class="text-center mb-3">Students</h4>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="select_all" onclick="toggleAllStudents(this)">
+            <label class="form-check-label" for="select_all">Select All Students</label>
+        </div>
         <ul class="list-group">
             {% for student in students %}
-            <li class="list-group-item d-flex align-items-center">
-                {% if student.photo %}
-                    <img src="{{ url_for('static', filename='uploads/' + student.photo) }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
-                {% else %}
-                    <img src="{{ url_for('static', filename='uploads/nophoto.jpg') }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
-                {% endif %}
-                
-                <div>
-                    <strong>{{ student.name }}</strong> (Roll No: {{ student.roll_no }})
+            <li class="list-group-item d-flex align-items-center justify-content-between" id="student_li_{{ student.id }}" style="cursor: pointer;" onclick="toggleAttendance('{{ student.id }}')">
+                <div class="d-flex align-items-center" style="flex-grow: 1;">
+                    {% if student.photo %}
+                        <img src="{{ url_for('static', filename='uploads/' + student.photo) }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='uploads/nophoto.jpg') }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+                    {% endif %}
+
+                    <div>
+                        <strong>{{ student.first_name }} {{ student.last_name }}</strong> (Roll No: {{ student.roll_no }})
+                        <small class="d-block text-muted status-label" id="status_{{ student.id }}">Absent</small>
+                    </div>
                 </div>
-                
-                <div class="ms-auto">
-                    <input type="checkbox" id="student_{{ student.id }}" name="students_present" value="{{ student.id }}">
-                    <label for="student_{{ student.id }}">Present</label>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input d-none" id="student_{{ student.id }}" name="students_present" value="{{ student.id }}">
+                    <label class="form-check-label btn btn-outline-primary" for="student_{{ student.id }}">Present</label>
                 </div>
             </li>
             {% endfor %}
         </ul>
 
-        <button type="submit" class="btn btn-success mt-3">Submit Attendance</button>
+        <h4 class="text-center mt-5">Additional Information</h4>
+        <div class="mb-3">
+            <label>Lecture Capture Done (Y/N)</label>
+            <select name="lecture_capture" class="form-control" required>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Smart Board PDF Uploaded on VREFER (Y/N)</label>
+            <select name="pdf_uploaded" class="form-control" required>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Assignments Collected (Last Week)</label>
+            <input type="text" name="assignments_collected" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Assignments Given (Coming Week)</label>
+            <input type="text" name="assignments_given" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Assignments Graded and Distributed (Previous Week)</label>
+            <input type="text" name="assignments_graded" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" name="submit_type" value="submit" class="btn btn-primary">Submit Attendance</button>
+           
+        </div>
     </form>
 </div>
+
+<script>
+    function toggleAttendance(studentId) {
+        var checkbox = document.getElementById('student_' + studentId);
+        var statusLabel = document.getElementById('status_' + studentId);
+        var listItem = document.getElementById('student_li_' + studentId);
+
+        checkbox.checked = !checkbox.checked;
+        var label = checkbox.nextElementSibling;
+
+        if (checkbox.checked) {
+            label.classList.remove('btn-outline-primary');
+            label.classList.add('btn-primary');
+            statusLabel.textContent = "Present";
+            listItem.classList.add('highlight-selected');
+        } else {
+            label.classList.remove('btn-primary');
+            label.classList.add('btn-outline-primary');
+            statusLabel.textContent = "Absent";
+            listItem.classList.remove('highlight-selected');
+        }
+    }
+
+    function toggleAllStudents(selectAllCheckbox) {
+        var checkboxes = document.querySelectorAll("input[name='students_present']");
+        checkboxes.forEach(function(checkbox) {
+            var studentId = checkbox.value;
+            var listItem = document.getElementById('student_li_' + studentId);
+            var statusLabel = document.getElementById('status_' + studentId);
+            var label = checkbox.nextElementSibling;
+
+            checkbox.checked = selectAllCheckbox.checked;
+
+            if (checkbox.checked) {
+                label.classList.remove('btn-outline-primary');
+                label.classList.add('btn-primary');
+                statusLabel.textContent = "Present";
+                listItem.classList.add('highlight-selected');
+            } else {
+                label.classList.remove('btn-primary');
+                label.classList.add('btn-outline-primary');
+                statusLabel.textContent = "Absent";
+                listItem.classList.remove('highlight-selected');
+            }
+        });
+    }
+
+    
+</script>
 {% endblock %}

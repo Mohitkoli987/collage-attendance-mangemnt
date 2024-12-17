@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - View Courses</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        select, input, .btn {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            width: auto;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>All Courses</h2>
+        <form method="GET" action="/admin/courses">
+            <div class="filters">
+                <!-- Department Filter -->
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <select name="department" id="department">
+                        <option value="">-- All Departments --</option>
+                        <option value="INFT">INFT</option>
+                        <option value="CMPN">CMPN</option>
+                        <option value="EXCS">EXCS</option>
+                        <option value="EXTC">EXTC</option>
+                        <option value="BIOM">BIOM</option>
+                    </select>
+                </div>
+                <!-- Year Filter -->
+                <div class="form-group">
+                    <label for="year">Year:</label>
+                    <select name="year" id="year">
+                        <option value="">-- All Years --</option>
+                        <option value="1">1st</option>
+                        <option value="2">2nd</option>
+                        <option value="3">3rd</option>
+                        <option value="4">4th</option>
+                    </select>
+                </div>
+                <!-- Section Filter -->
+                <div class="form-group">
+                    <label for="section">Section:</label>
+                    <select name="section" id="section">
+                        <option value="">-- All Sections --</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                </div>
+                <!-- Semester Filter -->
+                <div class="form-group">
+                    <label for="semester">Semester:</label>
+                    <select name="semester" id="semester">
+                        <option value="">-- All Semesters --</option>
+                        <option value="I">I</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
+                        <option value="V">V</option>
+                        <option value="VI">VI</option>
+                        <option value="VII">VII</option>
+                        <option value="VIII">VIII</option>
+                    </select>
+                </div>
+                <!-- Teacher Name Filter -->
+                <div class="form-group">
+                    <label for="teacher_name">Search by Teacher:</label>
+                    <select name="teacher_name" id="teacher_name" class="form-control select2">
+                        <option value="">Search by Teacher Name</option>
+                        {% for teacher in teachers %}
+                        <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <!-- Course Year Filter -->
+                <div class="form-group">
+                    <label for="course_year">Select Course Year:</label>
+                    <select name="course_year" id="course_year">
+                        <option value="">-- All Years --</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <!-- Add more years as needed -->
+                    </select>
+                </div>
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn">Filter</button>
+                </div>
+            </div>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Teacher ID</th>
+                    <th>Year</th>
+                    <th>Branch</th>
+                    <th>Section</th>
+                    <th>Semester</th>
+                    <th>Slot</th>
+                    <th>Day</th>
+                    <th>Classroom/Lab</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.id }}</td>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.teacher_id }}</td>
+                    <td>{{ course.year }}</td>
+                    <td>{{ course.branch }}</td>
+                    <td>{{ course.section }}</td>
+                    <td>{{ course.semester }}</td>
+                    <td>{{ course.slot }}</td>
+                    <td>{{ course.days }}</td>
+                    <td>{{ course.classroom_lab_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<div class="container">
+    <h2>Timetable</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for time, slots in timetable["Monday"].items() %}
+            <tr>
+                <td>{{ time }}</td>
+                {% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] %}
+                <td>
+                    {% for course in timetable[day][time] %}
+                        <p>{{ course.teacher_name }} - {{ course.course_name }} ({{ course.room_id }})</p>
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#teacher_name').select2({
+            placeholder: 'Search by Teacher Name',
+            allowClear: true,
+            width: '100%' // Ensures the dropdown takes up the full width of its container
+        });
+    });
+</script>
+
+</body>
+</html>

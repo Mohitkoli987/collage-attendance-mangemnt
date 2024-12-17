@@ -13,28 +13,101 @@
         </div>
 
         <h4 class="text-center mb-3">Students</h4>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="select_all" onclick="toggleAllStudents(this)">
+            <label class="form-check-label" for="select_all">Select All Students</label>
+        </div>
         <ul class="list-group">
             {% for student in students %}
-            <li class="list-group-item d-flex align-items-center">
-                {% if student.photo %}
-                    <img src="{{ url_for('static', filename='uploads/' + student.photo) }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
-                {% else %}
-                    <img src="{{ url_for('static', filename='uploads/nophoto.jpg') }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
-                {% endif %}
-                
-                <div>
-                    <strong>{{ student.name }}</strong> (Roll No: {{ student.roll_no }})
+            <li class="list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;">
+                <div class="d-flex align-items-center" style="flex-grow: 1;" onclick="toggleAttendance('{{ student.id }}')">
+                    {% if student.photo %}
+                        <img src="{{ url_for('static', filename='uploads/' + student.photo) }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='uploads/nophoto.jpg') }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+                    {% endif %}
+
+                    <div>
+                        <strong>{{ student.first_name }} {{ student.last_name }}</strong> (Roll No: {{ student.roll_no }})
+                        <small class="d-block text-muted status-label" id="status_{{ student.id }}">{{ 'Present' if student.present else 'Absent' }}</small>
+                    </div>
                 </div>
-                
-                <div class="ms-auto">
-                    <input type="checkbox" id="student_{{ student.id }}" name="students_present" value="{{ student.id }}" {% if student.present %}checked{% endif %}>
-                    <label for="student_{{ student.id }}">Present</label>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input d-none" id="student_{{ student.id }}" name="students_present" value="{{ student.id }}" {% if student.present %}checked{% endif %}>
+                    <label class="form-check-label btn {% if student.present %}btn-primary{% else %}btn-outline-primary{% endif %}" for="student_{{ student.id }}">Present</label>
                 </div>
             </li>
             {% endfor %}
         </ul>
 
+        <h4 class="text-center mt-5">Additional Information</h4>
+        <div class="mb-3">
+            <label>Lecture Capture Done (Y/N)</label>
+            <select name="lecture_capture" class="form-control" required>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Smart Board PDF Uploaded on VREFER (Y/N)</label>
+            <select name="pdf_uploaded" class="form-control" required>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Assignments Collected (Last Week)</label>
+            <input type="text" name="assignments_collected" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Assignments Given (Coming Week)</label>
+            <input type="text" name="assignments_given" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Assignments Graded and Distributed (Previous Week)</label>
+            <input type="text" name="assignments_graded" class="form-control">
+        </div>
+
         <button type="submit" class="btn btn-warning mt-3">Update Attendance</button>
     </form>
 </div>
+
+<script>
+    function toggleAttendance(studentId) {
+        var checkbox = document.getElementById('student_' + studentId);
+        var statusLabel = document.getElementById('status_' + studentId);
+        checkbox.checked = !checkbox.checked;
+        var label = checkbox.nextElementSibling;
+
+        if (checkbox.checked) {
+            label.classList.remove('btn-outline-primary');
+            label.classList.add('btn-primary');
+            statusLabel.textContent = "Present";
+        } else {
+            label.classList.remove('btn-primary');
+            label.classList.add('btn-outline-primary');
+            statusLabel.textContent = "Absent";
+        }
+    }
+
+    function toggleAllStudents(selectAllCheckbox) {
+        var checkboxes = document.querySelectorAll("input[name='students_present']");
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+            var label = checkbox.nextElementSibling;
+            var statusLabel = document.getElementById('status_' + checkbox.value);
+
+            if (checkbox.checked) {
+                label.classList.remove('btn-outline-primary');
+                label.classList.add('btn-primary');
+                statusLabel.textContent = "Present";
+            } else {
+                label.classList.remove('btn-primary');
+                label.classList.add('btn-outline-primary');
+                statusLabel.textContent = "Absent";
+            }
+        });
+    }
+</script>
 {% endblock %}

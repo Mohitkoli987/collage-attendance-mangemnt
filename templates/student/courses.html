@@ -3,7 +3,7 @@
 {% block title %}Available Courses{% endblock %}
 
 {% block content %}
-<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;" >
     <h2>Available Courses</h2>
     
     <!-- Filter Form -->
@@ -24,48 +24,45 @@
 
     <table class="table table-bordered">
         <thead>
-        <tr>
-            <th>Course Name</th>
-            <th>Teacher</th>
-            <th>Branch</th>
-            <th>Year</th>
-            <th>Section</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Classroom/Lab ID</th>
-            <th>Action</th>
-        </tr>
+            <tr>
+                <th>Course Name</th>
+                <th>Teacher</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>Section</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Classroom/Lab ID</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
-        {% for course in available_courses %}
-            <tr>
-                <td>{{ course.name }}</td>
-                <td>{{ course.teacher_name }}</td>
-                <td>{{ course.branch }}</td>
-                <td>{{ course.year }}</td>
-                <td>{{ course.section }}</td>
-                <td>{{ course.date }}</td>
-                <td>
-                    {% if course.time %}
-                        {{ course.time }}
-                    {% else %}
-                        {{ course.slot }}
-                    {% endif %}
-                </td>
-                <td>{{ course.classroom_lab_id }}</td>
-                <td>
-                    {% if course.id in enrolled_courses %}
-                        <button class="btn btn-success" disabled>Enrolled</button>
-                    {% else %}
-                        <form method="POST" action="{{ url_for('enroll_course', course_id=course.id) }}">
-                            <button type="submit" class="btn btn-primary">Enroll</button>
-                        </form>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
+            {% for course in available_courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.teacher_name }}</td>
+                    <td>{{ course.branch }}</td>
+                    <td>{{ course.year }}</td>
+                    <td>{{ course.section }}</td>
+                    <td>{{ course.date }}</td>
+                    <td>{{ course.time if course.time else course.slot }}</td>
+                    <td>{{ course.classroom_lab_id }}</td>
+                    <td>
+                        {% if course.id in enrolled_courses %}
+                            <button class="btn btn-success" disabled>Enrolled</button>
+                        {% elif course.id in requested_courses %}
+                            <form method="POST" action="{{ url_for('cancel_request_course', course_id=course.id) }}">
+                                <button type="submit" class="btn btn-danger">Cancel Request</button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="{{ url_for('request_enroll_course', course_id=course.id) }}">
+                                <button type="submit" class="btn btn-warning">Request to Join</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
 {% endblock %}
-

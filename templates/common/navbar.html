@@ -1,9 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
-        <!-- Sidebar Icon -->
-        <button class="btn btn-outline-secondary me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-            <i class="bi bi-list"></i> <!-- Bootstrap icon for sidebar (hamburger menu) -->
+        <!-- Sidebar Toggle Icon (Three Dots) -->
+        {% if request.endpoint != 'index' %}
+        <!-- Sidebar Toggle Button -->
+        <button id="toggleSidebar" class="btn btn-outline-secondary me-3" type="button">
+            <i class="bi bi-three-dots"></i>
         </button>
+    {% endif %}
+    
+        <!-- Logo -->
+        <img alt="" src="{{ url_for('static', filename='uploads/file.png') }}" class="rounded-circle" width="60" height="60">
         
         <a class="navbar-brand" href="
     {% if session.get('teacher_id') %}
@@ -14,12 +20,15 @@
         {{ url_for('home') }}
     {% endif %}
 ">
-    Attendance System
+     VIT-SAMS
 </a>
 
+        <!-- Navbar Toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -30,32 +39,22 @@
                 </li>
 
                 {% if session.get('teacher_id') %}
-                <!-- Show teacher's name instead of Home -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('teacher_profile') }}">
                         {{ session.get('teacher_name', 'My Profile') }}
                     </a>
                 </li>
                 {% elif session.get('student_id') %}
-                <!-- Show student's name instead of Home -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('student_profile') }}">
                         {{ session.get('student_name', 'My Profile') }}
                     </a>
                 </li>
                 {% else %}
-                <!-- Default Home link for not logged in users -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                 </li>
                 {% endif %}
-
-                <li class="nav-item">
-                    <!-- <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a> -->
-                </li>
-                <li class="nav-item">
-                    <!-- <a class="nav-link" href="{{ url_for('contact_us') }}">Contact Us</a> -->
-                </li>
 
                 {% if not session.get('teacher_id') and not session.get('student_id') %}
                 <li class="nav-item dropdown">
@@ -64,9 +63,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="{{ url_for('teacher_signup') }}">Teacher Sign Up</a></li>
-                        <!-- <li><a class="dropdown-item" href="{{ url_for('teacher_login') }}">Teacher Login</a></li> -->
                         <li><a class="dropdown-item" href="{{ url_for('student_signup') }}">Student Sign Up</a></li>
-                        <!-- <li><a class="dropdown-item" href="{{ url_for('student_login') }}">Student Login</a></li> -->
                     </ul>
                 </li>
                 {% else %}
@@ -82,9 +79,20 @@
                         {% if session.get('teacher_id') %}
                         <li><a class="dropdown-item" href="{{ url_for('teacher_profile') }}">My Profile</a></li>
                         <li><a class="dropdown-item" href="{{ url_for('edit_teacher_profile') }}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('teacher_dashboard') }}">dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('my_courses') }}">My courses</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('add_course') }}">add course</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('view_student_applications') }}">view applications</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('generate_student_report') }}">view report</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('view_requests') }}">view requests</a></li>
+
                         {% elif session.get('student_id') %}
                         <li><a class="dropdown-item" href="{{ url_for('student_profile') }}">My Profile</a></li>
                         <li><a class="dropdown-item" href="{{ url_for('student_edit_profile') }}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('view_enrolled_courses') }}">My courses</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('student_courses') }}">available courses</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('apply_absence') }}">absence reason</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('view_application_status') }}">application status</a></li>
                         {% endif %}
                         <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
                     </ul>

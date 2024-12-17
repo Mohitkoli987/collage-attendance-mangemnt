@@ -19,7 +19,7 @@
         <tbody>
         {% for application in applications %}
             <tr>
-                <td>{{ application.student_name }}</td>
+                <td>{{ application.first_name }} {{ application.last_name }}</td> <!-- Updated to use first_name and last_name -->
                 <td>{{ application.date_of_application }}</td>
                 <td>{{ application.number_of_days }}</td>
                 <td>{{ application.reason }}</td>

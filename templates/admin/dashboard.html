@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Internal CSS for the Admin Dashboard */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            padding: 15px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar .logout-btn {
+            background-color: #ff5c5c;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            float: right;
+            margin-top: -30px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #343a40;
+            position: fixed;
+            top: 50px;
+            bottom: 0;
+            left: 0;
+            padding-top: 20px;
+            color: white;
+            height: 100%;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #575d63;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #343a40;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>Admin Dashboard</h1>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <a href="#">Dashboard</a>
+        <a href="{{ url_for('admin_view_teachers') }}">Manage teachers</a>
+        <a href="{{ url_for('admin_view_courses') }}">view Courses</a>
+        <a href="{{ url_for('admin_add_course') }}">add Courses</a>
+
+        <a href="{{ url_for('admin_take_attendance') }}">Attendance</a>
+        <a href="#">Notifications</a>
+        <a href="{{ url_for('admin_view_attendance') }}">View attednce</a>
+        <a href="{{ url_for('generate_report') }}">report</a>
+        <a href="{{ url_for('student_report') }}">student report</a>
+        <a href="{{ url_for('upload_students') }}">upload students</a>
+
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h2>Welcome, Admin</h2>
+
+        <div class="card">
+            <h3>Total Students</h3>
+            <p>Placeholder for total students count</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Courses</h3>
+            <p>Placeholder for total courses count</p>
+        </div>
+
+        <div class="card">
+            <h3>Attendance Records</h3>
+            <p>Placeholder for attendance records summary</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Admin Dashboard &copy; 2024</p>
+    </div>
+
+</body>
+</html>

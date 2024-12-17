@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Report</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+            color: #333;
+            padding: 20px;
+        }
+        h2 {
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 500;
+        }
+        .form-control, .btn {
+            border-radius: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        /* Styling the table */
+        table {
+            width: 100%;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 0.6em;
+            table-layout: fixed;
+        }
+        thead th {
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 6px;
+            font-size: 1em; /* Increased font size */
+            font-weight: bold; /* Made the text bold */
+            white-space: normal;
+            height: 60px;
+        }
+        tbody td {
+            text-align: center;
+            padding: 4px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        tbody tr:hover {
+            background: #f1f1f1;
+        }
+        /* Make table more compact */
+        .table-container {
+            overflow-x: auto;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2><i class="fas fa-file-alt"></i> Generate Report</h2>
+    <!-- Report Generation Form -->
+    <form action="{{ url_for('generate_report') }}" method="POST" class="mb-4">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="year">Year:</label>
+                <select id="year" name="year" class="form-control">
+                    <option value="" disabled selected>Select year</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="branch">Branch:</label>
+                <select id="branch" name="branch" class="form-control">
+                    <option value="" disabled selected>Select branch</option>
+                    <option value="All">All</option>
+                    <option value="INFT">INFT</option>
+                    <option value="CMPN">CMPN</option>
+                    <option value="EXCS">EXCS</option>
+                    <option value="EXTC">EXTC</option>
+                    <option value="BIOM">BIOM</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="semester">Semester:</label>
+                <select id="semester" name="semester" class="form-control">
+                    <option value="" disabled selected>Select semester</option>
+                    <option value="I">I</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                    <option value="IV">IV</option>
+                    <option value="V">V</option>
+                    <option value="VI">VI</option>
+                    <option value="VII">VII</option>
+                    <option value="VIII">VIII</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" class="form-control">
+            </div>
+        </div>
+        <button type="submit" name="generate_report" class="btn btn-primary btn-block mt-3"><i class="fas fa-download"></i> Generate Report</button>
+    </form>
+
+    <!-- Excel Download Form (Conditional) -->
+    {% if report %}
+    <form action="{{ url_for('download_excel') }}" method="POST" class="mb-4">
+        <input type="hidden" name="year" value="{{ request.form.get('year') }}">
+        <input type="hidden" name="branch" value="{{ request.form.get('branch') }}">
+        <input type="hidden" name="semester" value="{{ request.form.get('semester') }}">
+        <input type="hidden" name="date" value="{{ request.form.get('date') }}">
+        <button type="submit" name="Download as Excel" class="btn btn-success btn-block"><i class="fas fa-file-excel"></i> Download as Excel</button>
+    </form>
+
+    <div class="table-container">
+        <h4>Date: {{ date }} ({{ day_of_week }})</h4> <!-- Added the day of the week next to the date -->
+    <h5 class="mb-3">Schedule of Daily Lecture Record</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>SEM</th>
+                    <th>DIV</th>
+                    <th>Total Batch Strength</th>
+                    <th>Subject</th>
+                    <th>Lecture slot</th>
+                    <th>Professor</th>
+                    <th>Room No.</th>
+                    <th>Attendance</th>
+                    <th>Lecture Capture (Y/N)</th>
+                    <th>PDF Uploaded (Y/N)</th>
+                    <th>Assignments Collected</th>
+                    <th>Assignments Given</th>
+                    <th>Assignments Graded</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in report %}
+                <tr>
+                    <td>{{ row.semester }}</td>
+                    <td>{{ row.division }}</td>
+                    <td>{{ row.total_strength }}</td>
+                    <td>{{ row.subject }}</td>
+                    <td>{{ row.timing }}</td>
+                    <td>{{ row.professor }}</td>
+                    <td>{{ row.classroom }}</td>
+                    <td>{{ row.present_students }}</td>
+                    <td>{{ row.lecture_capture }}</td>
+                    <td>{{ row.pdf_uploaded }}</td>
+                    <td>{{ row.assignments_collected }}</td>
+                    <td>{{ row.assignments_given }}</td>
+                    <td>{{ row.assignments_graded }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap and JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

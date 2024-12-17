@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container mt-5" style="margin-left: 50px; padding-top: 65px;">
     <h2 class="text-center mb-4">Add Student to Course</h2>
-    
+
     <!-- Search form -->
     <form method="get" action="{{ url_for('add_student_to_course', course_id=course_id) }}">
         <div class="mb-3">
@@ -52,20 +52,26 @@
 
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
-    
+
     <!-- Display search results if students are found -->
     {% if students %}
     <div class="mt-4">
         <h4 class="text-center mb-3">Search Results</h4>
         <form method="post" action="{{ url_for('add_student_to_course', course_id=course_id) }}">
-            <ul class="list-group">
+            <!-- Select All checkbox -->
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="selectAll" onclick="toggleSelectAll(this)">
+                <label class="form-check-label" for="selectAll">Select All Students</label>
+            </div>
+
+            <ul class="list-group" id="student-list">
                 {% for student in students %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li class="list-group-item d-flex justify-content-between align-items-center student-row" data-student-id="{{ student.id }}" onclick="toggleStudentSelection(this)">
                     <div class="d-flex align-items-center">
                         <!-- Display Profile Picture -->
-                        <img src="{{ url_for('static', filename='uploads/' + (student['photo'] or 'nophoto.jpg')) }}" alt="{{ student['name'] }}'s photo" class="rounded-circle me-3" width="50" height="50">
+                        <img src="{{ url_for('static', filename='uploads/' + (student['photo'] or 'nophoto.jpg')) }}" alt="{{ student['first_name'] }}'s photo" class="rounded-circle me-3" width="50" height="50">
                         <div>
-                            <h5 class="mb-1">{{ student.name }}</h5>
+                            <h5 class="mb-1">{{ student.first_name }} {{ student.last_name }}</h5>
                             <p class="mb-1">Roll No: {{ student.roll_no }}</p>
                         </div>
                     </div>
@@ -73,7 +79,7 @@
                         {% if student.enrolled %}
                             <span class="badge bg-success">Enrolled</span>
                         {% else %}
-                            <input type="checkbox" name="student_ids" value="{{ student.id }}">
+                            <input type="checkbox" name="student_ids" value="{{ student.id }}" class="student-checkbox d-none">
                         {% endif %}
                     </div>
                 </li>
@@ -89,4 +95,43 @@
     <p class="text-center text-warning">No students found matching your criteria.</p>
     {% endif %}
 </div>
+
+<!-- JavaScript for making the rows selectable and Select All functionality -->
+<script>
+    function toggleStudentSelection(row) {
+        const checkbox = row.querySelector('.student-checkbox');
+        checkbox.checked = !checkbox.checked;
+        
+        if (checkbox.checked) {
+            row.classList.add('selected-row');
+        } else {
+            row.classList.remove('selected-row');
+        }
+    }
+
+    function toggleSelectAll(selectAllCheckbox) {
+        const checkboxes = document.querySelectorAll(".student-checkbox");
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+            const row = checkbox.closest('li');
+            if (selectAllCheckbox.checked) {
+                row.classList.add('selected-row');
+            } else {
+                row.classList.remove('selected-row');
+            }
+        });
+    }
+</script>
+
+<!-- CSS for highlighting selected rows -->
+<style>
+    .selected-row {
+        background-color: #d1ecf1;
+    }
+
+    .student-row {
+        cursor: pointer;
+    }
+</style>
+
 {% endblock %}

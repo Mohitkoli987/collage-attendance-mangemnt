@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Take Attendance</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            padding-top: 65px;
+        }
+        .container {
+            margin-left: 50px;
+        }
+        .rounded-circle {
+            object-fit: cover;
+        }
+        .form-check {
+            margin-left: 10px;
+        }
+
+        /* Highlight selected student with blue theme */
+        .highlight-selected {
+            background-color: #e7f3ff; /* Light blue background for selection */
+            border: 1px solid #007bff; /* Border to match the button color */
+        }
+        .highlight-selected .status-label {
+            color: #007bff; /* Match blue for text */
+        }
+        .highlight-selected:hover {
+            background-color: #d6eaff; /* Slightly darker on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Admin - Take Attendance</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="mb-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+        <!-- Step 1: Select course and date -->
+        <form method="POST" action="{{ url_for('admin_take_attendance') }}">
+            <!-- Date Input -->
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" id="date" name="date" class="form-control" value="{{ date }}" required>
+            </div>
+
+            <!-- Select Course with Improved Search -->
+            <div class="mb-3">
+                <label for="course" class="form-label">Select Course</label>
+                <select id="course" name="course_id" class="form-control select2" required>
+                    <option value="">Search by Course Name, Teacher, Branch, or Year</option>
+                    {% for course in courses %}
+                    <option value="{{ course.id }}" {% if selected_course and course.id == selected_course.id %}selected{% endif %}>
+                        {{ course.name }} - {{ course.teacher_name }} | {{ course.branch }} | Year {{ course.year }} | {{ course.classroom_lab_id }} | {{ course.day }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Step 1 Button: Take Attendance -->
+            <button type="submit" name="take_attendance" class="btn btn-primary mt-3">Take Attendance</button>
+        </form>
+
+        {% if students %}
+        <!-- Step 2: Select students and submit attendance -->
+        <form method="POST" action="{{ url_for('admin_take_attendance') }}">
+            <input type="hidden" name="course_id" value="{{ selected_course.id }}">
+            <input type="hidden" name="date" value="{{ date }}">
+
+            <h4 class="text-center mt-5">Students in {{ selected_course.name }}</h4>
+            <!-- Select All Students -->
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="select_all" onclick="toggleAllStudents(this)">
+                <label class="form-check-label" for="select_all">Select All Students</label>
+            </div>
+
+            <ul class="list-group">
+                {% for student in students %}
+                <li class="list-group-item d-flex align-items-center justify-content-between" id="student_li_{{ student.id }}" style="cursor: pointer;" onclick="toggleAttendance('{{ student.id }}')">
+                    <div class="d-flex align-items-center" style="flex-grow: 1;">
+                        {% if student.photo %}
+                            <img src="{{ url_for('static', filename='uploads/' + student.photo) }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='uploads/nophoto.jpg') }}" alt="Profile" class="rounded-circle me-3" width="50" height="50">
+                        {% endif %}
+                        <div>
+                            <strong>{{ student.first_name }} {{ student.last_name }}</strong> (Roll No: {{ student.roll_no }})
+                            <small class="d-block text-muted status-label" id="status_{{ student.id }}">Absent</small>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input d-none" id="student_{{ student.id }}" name="students_present" value="{{ student.id }}">
+                        <label class="form-check-label btn btn-outline-primary" for="student_{{ student.id }}">Present</label>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Step 2 Button: Submit Attendance -->
+            <button type="submit" name="submit_attendance" class="btn btn-success mt-3">Submit Attendance</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#course').select2({
+                placeholder: 'Search by Course Name, Teacher, Branch, or Year'
+            });
+        });
+
+        // Toggle individual student attendance
+        function toggleAttendance(studentId) {
+            var checkbox = document.getElementById('student_' + studentId);
+            var statusLabel = document.getElementById('status_' + studentId);
+            var listItem = document.getElementById('student_li_' + studentId);
+
+            checkbox.checked = !checkbox.checked;
+            var label = checkbox.nextElementSibling;
+
+            if (checkbox.checked) {
+                label.classList.remove('btn-outline-primary');
+                label.classList.add('btn-primary');
+                statusLabel.textContent = "Present";
+                listItem.classList.add('highlight-selected');
+            } else {
+                label.classList.remove('btn-primary');
+                label.classList.add('btn-outline-primary');
+                statusLabel.textContent = "Absent";
+                listItem.classList.remove('highlight-selected');
+            }
+        }
+
+        // Toggle all students' attendance
+        function toggleAllStudents(selectAllCheckbox) {
+            var checkboxes = document.querySelectorAll("input[name='students_present']");
+            checkboxes.forEach(function(checkbox) {
+                var studentId = checkbox.value;
+                var listItem = document.getElementById('student_li_' + studentId);
+                var statusLabel = document.getElementById('status_' + studentId);
+                var label = checkbox.nextElementSibling;
+
+                checkbox.checked = selectAllCheckbox.checked;
+
+                if (checkbox.checked) {
+                    label.classList.remove('btn-outline-primary');
+                    label.classList.add('btn-primary');
+                    statusLabel.textContent = "Present";
+                    listItem.classList.add('highlight-selected');
+                } else {
+                    label.classList.remove('btn-primary');
+                    label.classList.add('btn-outline-primary');
+                    statusLabel.textContent = "Absent";
+                    listItem.classList.remove('highlight-selected');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

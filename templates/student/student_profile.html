@@ -13,7 +13,13 @@
             </div>
 
             <!-- Student Info -->
-            <h3 class="mt-3">{{ session.get('student_name', 'Student Name') }}</h3>
+            <h3 class="mt-3">
+                {{ session.get('student_first_name', '') }} 
+                {% if session.get('student_middle_name') %}
+                    {{ session.get('student_middle_name') }}
+                {% endif %}
+                {{ session.get('student_last_name', '') }}
+            </h3>
             <p>Roll Number: {{ student.roll_no }}</p>
             <p>Email: {{ student.email }}</p>
             <p>Contact: {{ student.contact }}</p>

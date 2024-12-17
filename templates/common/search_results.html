@@ -11,7 +11,9 @@
             <a href="{{ url_for('view_student_profile', student_id=student['id']) }}" class="list-group-item list-group-item-action d-flex align-items-center">
                 <img src="{{ url_for('static', filename='uploads/' + (student['photo'] or 'nophoto.jpg')) }}" alt="{{ student['name'] }}'s photo" class="rounded-circle me-3" width="50" height="50">
                 <div>
-                    <h5 class="mb-1">{{ student['name'] }}</h5>
+
+                    <h5 class="mb-1">{{ student['first_name'] }} {{ student['last_name'] }}</h5>
+
                     <p class="mb-1">Email: {{ student['email'] }} | Roll No: {{ student['roll_no'] }}</p>
                 </div>
             </a>
@@ -22,7 +24,7 @@
             <a href="{{ url_for('view_teacher_profile', teacher_id=teacher['id']) }}" class="list-group-item list-group-item-action d-flex align-items-center">
                 <img src="{{ url_for('static', filename='uploads/' + (teacher['profile_photo'] or 'nophoto.jpg')) }}" alt="{{ teacher['name'] }}'s photo" class="rounded-circle me-3" width="50" height="50">
                 <div>
-                    <h5 class="mb-1">{{ teacher['name'] }}</h5>
+                    <h5 class="mb-1">{{ teacher['name'] }} {% if teacher['short_name'] %} ({{ teacher['short_name'] }}){% endif %}</h5>
                     <p class="mb-1">Email: {{ teacher['email'] }}</p>
                 </div>
             </a>

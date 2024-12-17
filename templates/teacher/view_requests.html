@@ -1,0 +1,40 @@
+{% extends 'common/homebase.html' %}
+
+{% block title %}View Enrollment Requests{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="margin-left: 50px; padding-top: 65px;" >
+    <h2>Enrollment Requests</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Roll Number</th>
+                <th>Course</th>
+                <th>Message</th>
+                <th>Sent At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.first_name }} {{ request.last_name }}</td>
+                <td>{{ request.roll_no }}</td>
+                <td>{{ request.course_name }}</td>
+                <td>{{ request.message }}</td>
+                <td>{{ request.sent_at }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('handle_request', request_id=request.id, action='approve') }}">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('handle_request', request_id=request.id, action='reject') }}">
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
